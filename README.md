@@ -1,0 +1,2 @@
+# yfs
+Yahoo Finance Scraper
