@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "yfs"
+version = "0.1.0"
+description = "Scrape Yahoo Finance"
+authors = ["dgnsrekt <dgnsrekt@pm.me>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+loguru = "^0.5.2"
+pydantic = "^1.6.1"
+requests-html = "^0.10.0"
+pendulum = "^2.1.2"
+more_itertools = "^8.5.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.0.2"
+pytest-sugar = "^0.9.4"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
