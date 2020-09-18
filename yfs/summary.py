@@ -129,7 +129,7 @@ class Summary(Base, Cleaners):
             return None
         else:
             _, size = value.split("x")
-            return size
+            return size  # NOTE: strip?
 
     @validator("days_low", "fifty_two_week_low", pre=True)
     def clean_range_start(cls, value):
@@ -230,11 +230,9 @@ def parse_header(html):
     if quote_header_info:
 
         for name, value in header_selectors:
-
             element = quote_header_info.find(value)
 
             if element and len(element) == 1:
-
                 data[name] = element[0].text
 
     if data:
@@ -289,6 +287,7 @@ def get_summary_page(symbol: str, fuzzy_search=True, raise_error=False):
 
     if fuzzy_search:
         fuzzy_data = FuzzySymbolSearch(symbol, session=session)
+
         if fuzzy_data:
             symbol = fuzzy_data.symbol
 
@@ -317,7 +316,9 @@ def get_summary_page(symbol: str, fuzzy_search=True, raise_error=False):
         return None
 
 
-def get_summary_pages(symbols: List[str], fuzzy_search=True, with_threads=False, thread_count=5):
+def get_summary_pages(
+    symbols: List[str], fuzzy_search=True, raise_erorr=False, with_threads=False, thread_count=5
+):
     data = []
 
     if with_threads:
@@ -325,7 +326,9 @@ def get_summary_pages(symbols: List[str], fuzzy_search=True, with_threads=False,
 
         with ThreadPoolExecutor(max_workers=thread_count) as executor:
             futures = [
-                executor.submit(get_summary_page, symbol, fuzzy_search=fuzzy_search)
+                executor.submit(
+                    get_summary_page, symbol, fuzzy_search=fuzzy_search, raise_erorr=raise_erorr
+                )
                 for symbol in symbols
             ]
 
@@ -336,7 +339,7 @@ def get_summary_pages(symbols: List[str], fuzzy_search=True, with_threads=False,
 
     else:
         for symbol in symbols:
-            results = get_summary_page(symbol, fuzzy_search=fuzzy_search)
+            results = get_summary_page(symbol, fuzzy_search=fuzzy_search, raise_error=raise_erorr)
             if results:
                 data.append(results)
 
