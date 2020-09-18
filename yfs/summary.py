@@ -33,7 +33,15 @@ class Cleaners:
 
     @staticmethod
     def check_data_missing(value):
-        if value in ["N/A", "N/A (N/A)", "N/A x N/A"]:
+        if value in [
+            "N/A",
+            "N/A (N/A)",
+            "N/A x N/A",
+            "N/A - N/A",
+            "undefined - undefined",
+            " ",
+            "",
+        ]:
             return True
         else:
             return False
@@ -44,21 +52,22 @@ class Summary(Base, Cleaners):
     # Model which represents yf summary page.
     symbol: str
     name: str
+
+    open: Optional[float]
+    high: Optional[float] = Field(alias="days_range")
+    low: Optional[float] = Field(alias="days_range")
     close: Optional[float]
+
     change: Optional[float]
     percent_change: Optional[float]
 
     previous_close: Optional[float]
-    open: Optional[float]
 
     bid_price: Optional[float] = Field(alias="bid")
     bid_size: Optional[int] = Field(alias="bid")
 
     ask_price: Optional[float] = Field(alias="ask")
     ask_size: Optional[int] = Field(alias="ask")
-
-    days_low: Optional[float] = Field(alias="days_range")
-    days_high: Optional[float] = Field(alias="days_range")
 
     fifty_two_week_low: Optional[float] = Field(alias="fifty_two_week_range")
     fifty_two_week_high: Optional[float] = Field(alias="fifty_two_week_range")
@@ -67,6 +76,7 @@ class Summary(Base, Cleaners):
     average_volume: Optional[int] = Field(alias="avg_volume")
 
     market_cap: Optional[int]
+
     beta_five_year_monthly: Optional[float]
     pe_ratio_ttm: Optional[float]
     eps_ttm: Optional[float]
@@ -100,6 +110,10 @@ class Summary(Base, Cleaners):
         else:
             return cls.remove_comma(value)
 
+    @validator("symbol")
+    def clean_symbol(cls, value):
+        return value.upper()
+
     @validator("change", "forward_dividend_yield", pre=True)
     def clean_change(cls, value):
         if cls.check_data_missing(value):
@@ -131,7 +145,7 @@ class Summary(Base, Cleaners):
             _, size = value.split("x")
             return size  # NOTE: strip?
 
-    @validator("days_low", "fifty_two_week_low", pre=True)
+    @validator("low", "fifty_two_week_low", pre=True)
     def clean_range_start(cls, value):
         if cls.check_data_missing(value):
             return None
@@ -140,7 +154,7 @@ class Summary(Base, Cleaners):
             start, _ = value.split("-")
             return start
 
-    @validator("days_high", "fifty_two_week_high", pre=True)
+    @validator("high", "fifty_two_week_high", pre=True)
     def clean_range_end(cls, value):
         if cls.check_data_missing(value):
             return None
