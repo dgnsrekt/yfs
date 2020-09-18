@@ -12,6 +12,7 @@ pydantic = "^1.6.1"
 requests-html = "^0.10.0"
 pendulum = "^2.1.2"
 more_itertools = "^8.5.0"
+pandas = "^1.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.0.2"
