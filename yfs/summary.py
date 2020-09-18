@@ -284,7 +284,7 @@ class SummaryPageNotFound(AttributeError):
     pass
 
 
-def get_summary_page(symbol, fuzzy_search=True, raise_error=False):
+def get_summary_page(symbol: str, fuzzy_search=True, raise_error=False):
     session = Session()
 
     if fuzzy_search:
@@ -317,7 +317,7 @@ def get_summary_page(symbol, fuzzy_search=True, raise_error=False):
         return None
 
 
-def get_summary_pages(symbols, fuzzy_search=True, with_threads=False, thread_count=5):
+def get_summary_pages(symbols: List[str], fuzzy_search=True, with_threads=False, thread_count=5):
     data = []
 
     if with_threads:
