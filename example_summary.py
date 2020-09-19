@@ -15,28 +15,35 @@ TICKERS = [
     "MEAT CITY",
     "RANDOM",
     "GOOGL",
+    "FuelCell",
+    "FCEL",
+    "GOOGLE",
+    "GOOGLE",
+    "Wintrust Financial Corporation",
 ]
 
 from time import time
 
-data = get_summary_page("GOOG", fuzzy_search=False, raise_error=False)
+data = get_summary_page("GOOG", fuzzy_search=True, raise_error=False)
 print(data)
 
-# start = time()
-# tickers = get_summary_pages(TICKERS, fuzzy_search=True, with_threads=False)
-# end = time()
-# print("no threads")
-# print(end - start)
+start = time()
+tickers = get_summary_pages(TICKERS, fuzzy_search=True, with_threads=False, progress_bar=True)
+end = time()
+print("no threads")
+print(end - start)
 
 start = time()
-tickers = get_summary_pages(TICKERS, fuzzy_search=True, with_threads=True)
+tickers = get_summary_pages(TICKERS, fuzzy_search=True, with_threads=True, progress_bar=True)
 end = time()
+
 print("with threads")
 print(end - start)
 
 
-print(tickers)
-print(tickers.json(indent=4))
-print(tickers.dict())
-print(tickers.dataframe.info())
-print(tickers.dataframe.describe())
+# print(tickers)
+# print(tickers.json(indent=4))
+# print(tickers.dict())
+print(tickers.dataframe)
+# print(tickers.dataframe.info())
+# print(tickers.dataframe.describe())

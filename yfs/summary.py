@@ -16,8 +16,8 @@ from pendulum.date import Date
 import pandas
 from pandas import DataFrame
 
-from yfs.symbol import FuzzySymbolSearch
-
+from yfs.symbol import fuzzy_symbol_seach
+import enlighten
 
 JSON_ENCODERS = {Period: lambda period: f"{str(period.start.date())} {str(period.end.date())}"}
 
@@ -47,7 +47,6 @@ class Cleaners:
             return False
 
 
-# Maybe have a quote section.
 class Summary(Base, Cleaners):
     # Model which represents yf summary page.
     symbol: str
@@ -217,11 +216,13 @@ class SummaryGroup(Base):
         return [symbol.symbol for symbol in self]
 
     @property
-    def dataframe(self):
+    def dataframe(self, sorted=True):
         data = self.dict()
         dataframe = DataFrame.from_dict(data["data"])
         dataframe.set_index("symbol", inplace=True)
-        return dataframe
+        if sorted:
+            dataframe.sort_index(inplace=True)
+        return dataframe  # TODO: none or nan
 
     def __iter__(self):
         return iter(self.data)
@@ -296,18 +297,22 @@ class SummaryPageNotFound(AttributeError):
     pass
 
 
-def get_summary_page(symbol: str, fuzzy_search=True, raise_error=False):
-    session = Session()
+def get_summary_page(
+    symbol: str, fuzzy_search=True, raise_error=False, session=None, proxies=None, timeout=5
+):
 
     if fuzzy_search:
-        fuzzy_data = FuzzySymbolSearch(symbol, session=session)
+        fuzzy_data = fuzzy_symbol_seach(symbol, session=session, first=True)
 
         if fuzzy_data:
             symbol = fuzzy_data.symbol
 
     url = f"https://finance.yahoo.com/quote/{symbol}?p={symbol}"
 
-    response = session.get(url)
+    if session:
+        response = session.get(url, proxies=proxies, timeout=timeout)
+    else:
+        response = requests.get(url, proxies=proxies, timeout=timeout)
 
     if response.ok:
 
@@ -331,31 +336,111 @@ def get_summary_page(symbol: str, fuzzy_search=True, raise_error=False):
 
 
 def get_summary_pages(
-    symbols: List[str], fuzzy_search=True, raise_erorr=False, with_threads=False, thread_count=5
+    symbols: List[str],
+    fuzzy_search=True,
+    raise_error=False,
+    with_threads=False,
+    thread_count=5,
+    session=None,
+    progress_bar=True,
+    proxies=None,
+    timeout=5,
 ):
+
+    symbols = list(set(symbols))
     data = []
 
     if with_threads:
         from concurrent.futures import as_completed, ThreadPoolExecutor
 
+        if fuzzy_search:
+            valid_symbols = []
+
+            with ThreadPoolExecutor(max_workers=thread_count) as executor:
+                futures = [
+                    executor.submit(
+                        fuzzy_symbol_seach,
+                        symbol,
+                        first=True,
+                        session=session,
+                        proxies=proxies,
+                        timeout=timeout,
+                    )
+                    for symbol in symbols
+                ]
+
+                pbar = enlighten.Counter(
+                    total=len(futures), desc="Validating symbols...", unit="symbols"
+                )
+
+                for future in as_completed(futures):
+                    valid_symbols.append(future.result())
+                    if progress_bar:
+                        pbar.update()
+
+            valid_symbols = filter(lambda s: s is not None, valid_symbols)
+            symbols = list(set([s.symbol for s in valid_symbols]))
+
         with ThreadPoolExecutor(max_workers=thread_count) as executor:
             futures = [
                 executor.submit(
-                    get_summary_page, symbol, fuzzy_search=fuzzy_search, raise_erorr=raise_erorr
+                    get_summary_page,
+                    symbol,
+                    fuzzy_search=False,
+                    raise_error=raise_error,
+                    session=session,
+                    proxies=proxies,
+                    timeout=timeout,
                 )
                 for symbol in symbols
             ]
 
+            pbar = enlighten.Counter(
+                total=len(futures), desc="Downloading Summary Data...", unit="symbols"
+            )
             for future in as_completed(futures):
                 results = future.result()
                 if results:
                     data.append(results)
+                if progress_bar:
+                    pbar.update()
 
     else:
+
+        if fuzzy_search:
+            valid_symbols = []
+
+            pbar = enlighten.Counter(
+                total=len(symbols), desc="Validating symbols...", unit="symbols"
+            )
+            for symbol in symbols:
+                result = fuzzy_symbol_seach(
+                    symbol, first=True, session=session, proxies=proxies, timeout=timeout
+                )
+                valid_symbols.append(result)
+                if progress_bar:
+                    pbar.update()
+
+            valid_symbols = filter(lambda s: s is not None, valid_symbols)
+            symbols = list(set([s.symbol for s in valid_symbols]))
+
+        pbar = enlighten.Counter(
+            total=len(symbols), desc="Downloading Summary Data...", unit="symbols"
+        )
         for symbol in symbols:
-            results = get_summary_page(symbol, fuzzy_search=fuzzy_search, raise_error=raise_erorr)
+            results = get_summary_page(
+                symbol,
+                fuzzy_search=False,
+                raise_error=raise_error,
+                session=session,
+                proxies=proxies,
+                timeout=timeout,
+            )
+
             if results:
                 data.append(results)
+            if progress_bar:
+                pbar.update()
 
     if data:
         return SummaryGroup(data=data)

@@ -1,4 +1,4 @@
-from yfs.symbol import FuzzySymbolSearch
+from yfs.symbol import fuzzy_symbol_seach
 
 from pydantic import BaseModel as Base
 from pydantic import validator, Field
