@@ -16,6 +16,8 @@ pandas = "^1.1.2"
 prompt-toolkit = "^3.0.7"
 nitter-scraper = "^0.4.2"
 enlighten = "^1.6.2"
+requests = {extras = ["socks"], version = "^2.24.0"}
+requests-whaor = {git = "https://github.com/dgnsrekt/requests-whaor.git"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.0.2"

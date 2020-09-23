@@ -85,6 +85,7 @@ class ForeignExchanges(str, Enum):
     HANOVER = "Hanover"
     COPENHAGEN = "Copenhagen"
     CAIRO = "Cairo Stock Exchange"
+    ATHENS = "Athens"
 
 
 class OtherExchanges(str, Enum):
@@ -102,6 +103,8 @@ class OtherExchanges(str, Enum):
     TAL = "TAL"
     NEO = "NEO"
     PSX = "PSX"
+    LIT = "LIT"
+    RIS = "RIS"
     OSLO = "Oslo"
     TLX = "TLX Exchange"
     INDUSTRY = "Industry"
@@ -161,6 +164,9 @@ class SymbolAssistResponse(Base):
             return self.items[index]
         else:
             return None
+
+    def __len__(self):
+        return len(self.items)
 
     def update_items(items: List[Item]):
         self.items = items

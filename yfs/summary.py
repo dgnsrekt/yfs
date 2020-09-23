@@ -43,6 +43,12 @@ class Cleaners:
             "",
         ]:
             return True
+        elif "N/A" in value:
+            return True
+        elif "undefined" in value:
+            return True
+        elif "+-" in value:
+            return True
         else:
             return False
 
@@ -177,7 +183,7 @@ class Summary(Base, Cleaners):
                 if c in value:
                     return round(float(value.replace(c, "")) * v)
             else:
-                return round(float(value))
+                return round(float(cls.remove_comma(value)))
 
     @validator("earnings_date", pre=True)
     def clean_date_range(cls, value):
@@ -226,6 +232,9 @@ class SummaryGroup(Base):
 
     def __iter__(self):
         return iter(self.data)
+
+    def __len__(self):
+        return len(self.data)
 
 
 class QuoteHeaderInfoSelectors(Base):
@@ -280,14 +289,20 @@ def parse_summary_table(html):
         table_rows = quote_summary.find("tr")
 
         rows = [row.text.split("\n") for row in table_rows]
+        rows = list(filter(lambda row: len(row) == 2, rows))
 
         data = {}
 
-        for key, value in rows:
-            key = table_key_cleaner(key)
-            data[key] = value
+        try:
+            for key, value in rows:
+                key = table_key_cleaner(key)
+                data[key] = value
 
-        return data
+            return data
+
+        except ValueError as e:
+            print(rows)
+            raise e
 
     else:
         return None
@@ -297,6 +312,7 @@ class SummaryPageNotFound(AttributeError):
     pass
 
 
+# NOTE: better name than raise_error, maybe pagenotfound_ok ?
 def get_summary_page(
     symbol: str, fuzzy_search=True, raise_error=False, session=None, proxies=None, timeout=5
 ):
