@@ -1,21 +1,38 @@
 from prompt_toolkit import prompt
-from yfs.summary import get_summary_page
-from time import time
+
+from yfs.summary import get_summary_page, get_multiple_summary_pages
+from requests import Session
+
+import time
 
 while True:
-    symbol = prompt(":> ").strip()
-    if len(symbol) > 0:
-        summary = get_summary_page(symbol, fuzzy_search=True, raise_error=False)
-        if summary:
-            print(summary.json(indent=4))
-        else:
-            print(symbol, "Not found")
+    print("Use 'exit' to end.")
+    print("Type one symbol/company name or multiple separated by spaces.")
 
-# data = get_summary_page("GOOG", fuzzy_search=False, raise_error=False)
-# print(data)
-#
-# print(tickers)
-# print(tickers.json(indent=4))
-# print(tickers.dict())
-# print(tickers.dataframe.info())
-# print(tickers.dataframe.describe())
+    session = Session()
+
+    user_input = prompt(":> ").strip()
+
+    if user_input == "exit":
+        break
+
+    symbols = user_input.split(" ")
+
+    output = None
+
+    if len(symbols) == 1:
+        output = get_summary_page(
+            symbols[0], use_fuzzy_search=True, page_not_found_ok=True, session=session
+        )
+
+    elif len(symbols) > 1:
+        output = get_multiple_summary_pages(symbols, with_threads=False, session=session)
+        output = output.sorted()
+
+    if output:
+        print(output.json(indent=4))
+
+    else:
+        print("nothing found")
+
+    time.sleep(1)

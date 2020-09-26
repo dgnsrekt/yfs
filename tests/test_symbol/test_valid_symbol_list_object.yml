@@ -1,0 +1,11 @@
+'{"symbols": [{"symbol": "AAPL", "name": "Apple Inc.", "exchange": "NASDAQ", "asset_type":
+  "Equity"}, {"symbol": "^NY2LAAPL", "name": "ICE Leveraged 2x AAPL Index", "exchange":
+  "NYSE", "asset_type": "Index"}, {"symbol": "AAPL.BA", "name": "Apple Inc.", "exchange":
+  "Industry", "asset_type": "Equity"}, {"symbol": "AAPL34.SA", "name": "Apple Inc.",
+  "exchange": "Sao Paolo", "asset_type": "Equity"}, {"symbol": "AAPL.MX", "name":
+  "Apple Inc.", "exchange": "Mexico", "asset_type": "Equity"}, {"symbol": "AAPL.MI",
+  "name": "APPLE", "exchange": "Milan", "asset_type": "Equity"}, {"symbol": "AAPLD.BA",
+  "name": "APPLE INC", "exchange": "Buenos Aires", "asset_type": "Equity"}, {"symbol":
+  "AAPLC.BA", "name": "APPLE INC", "exchange": "Buenos Aires", "asset_type": "Equity"},
+  {"symbol": "AAPL.VI", "name": "Apple Inc.", "exchange": "Vienna", "asset_type":
+  "Equity"}]}'
