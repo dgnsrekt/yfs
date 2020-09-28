@@ -1,6 +1,6 @@
 from prompt_toolkit import prompt
+from yfs.statistics import get_statistics_page
 
-from yfs.summary import get_summary_page, get_multiple_summary_pages
 from requests import Session
 
 import time
@@ -21,19 +21,13 @@ while True:
     output = None
 
     if len(symbols) == 1:
-        output = get_summary_page(
+        output = get_statistics_page(
             symbols[0], use_fuzzy_search=True, page_not_found_ok=True, session=session
         )
 
-    elif len(symbols) > 1:
-        output = get_multiple_summary_pages(symbols, with_threads=False, session=session)
-        output = output.sorted()
-        print(output.dataframe)
-
     if output:
         print(output.json(indent=4))
+        print(output.valuation_measures.dataframe)
 
     else:
         print("nothing found")
-
-    time.sleep(1)

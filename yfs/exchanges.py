@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from enum import Enum
 from typing import Union
 
@@ -146,3 +147,26 @@ VALID_EXCHANGE_ENUMS = list(
 VALID_EXCHANGE_ENUM_NAMES = [exchange.name for exchange in VALID_EXCHANGE_ENUMS]
 
 VALID_EXCHANGE_ENUM_VALUES = [exchange.value for exchange in VALID_EXCHANGE_ENUMS]
+
+
+@dataclass
+class ExchangeTypes:
+    united_states: Enum = UnitedStatesExchanges
+    canada: Enum = CanadianExchanges
+    australian: Enum = AustralianExchanges
+    asia: Enum = AsianExchanges
+    south_america: Enum = SouthAmericanExchanges
+    europe: Enum = EuropeanExchanges
+    middle_east: Enum = MiddleEasternExchanges
+    africa: Enum = AfricanExchanges
+    unkown: Enum = UnkownExchanges
+
+    @classmethod
+    def show(cls):
+        exchange_types = cls().__dataclass_fields__
+        print("Exchange Types:\n")
+
+        for exchanges in exchange_types:
+            print(exchanges)
+        else:
+            print()

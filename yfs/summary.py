@@ -10,16 +10,18 @@ from pydantic import Field
 from pydantic import validator as clean
 from requests_html import HTML
 
-from .cleaner import ValueCleanerBase
-from .quote import parse_quote_header_info
+from .cleaner import cleaner, field_cleaner, table_cleaner, CommonCleaners
+from .quote import parse_quote_header_info, Quote
 from .requestor import requestor
-from .symbol import fuzzy_search
+from .lookup import fuzzy_search
 
 
-class SummaryPage(ValueCleanerBase):
+class SummaryPage(Base):
     # Model representing the yahoo finance summary page.
     symbol: str
-    name: str
+    name: str  # from quote
+
+    quote: Quote
 
     open: Optional[float]
     high: Optional[float] = Field(alias="days_range")
@@ -57,68 +59,18 @@ class SummaryPage(ValueCleanerBase):
 
     one_year_target_est: Optional[float]
 
-    @clean("symbol")
-    def clean_symbol(cls, value):
-        return value.upper()
+    _clean_symbol = cleaner("symbol")(CommonCleaners.clean_symbol)
 
-    @clean("open", pre=True)
-    def clean_open(cls, value):
-        if cls.value_is_missing(value):
-            return None
+    _clean_highs = cleaner("high", "fifty_two_week_high")(
+        CommonCleaners.clean_first_value_split_by_dash
+    )
+    _clean_lows = cleaner("low", "fifty_two_week_low")(
+        CommonCleaners.clean_second_value_split_by_dash
+    )
+    _clean_date = cleaner("earnings_date", "exdividend_date")(CommonCleaners.clean_date)
 
-        return cls.remove_comma(value)
-
-    @clean("high", "fifty_two_week_high", pre=True)
-    def clean_high(cls, value):
-        if cls.value_is_missing(value):
-            return None
-
-        _, value = value.split("-")
-        value = cls.remove_comma(value)
-        return value
-
-    @clean("low", "fifty_two_week_low", pre=True)
-    def clean_low(cls, value):
-        if cls.value_is_missing(value):
-            return None
-
-        value, _ = value.split("-")
-        value = cls.remove_comma(value)
-        return value
-
-    @clean("forward_dividend_yield", pre=True)
-    def clean_foward_dividen_yield(cls, value):
-        if cls.value_is_missing(value):
-            return None
-
-        value, _ = cls.remove_brakets_and_precent_sign(value).split(" ")
-        return value
-
-    @clean("forward_dividend_yield_percentage", pre=True)
-    def clean_foward_dividen_yield_percentage(cls, value):
-        if cls.value_is_missing(value):
-            return None
-
-        _, percentage = cls.remove_brakets_and_precent_sign(value).split(" ")
-        return percentage
-
-    @clean("bid_price", "ask_price", pre=True)
-    def clean_bid_ask_price(cls, value):
-        if cls.value_is_missing(value):
-            return None
-
-        price, _ = value.split("x")
-        return cls.common_value_cleaner(price)
-
-    @clean("bid_size", "ask_size", pre=True)
-    def clean_bid_ask_volume(cls, value):
-        if cls.value_is_missing(value):
-            return None
-
-        _, volume = value.split("x")
-        return cls.common_value_cleaner(volume)
-
-    @clean(
+    _clean_common_values = cleaner(
+        "open",
         "previous_close",
         "market_cap",
         "volume",
@@ -127,37 +79,27 @@ class SummaryPage(ValueCleanerBase):
         "beta_five_year_monthly",
         "eps_ttm",
         "one_year_target_est",
-        pre=True,
+    )(CommonCleaners.clean_common_values)
+
+    _clean_forward_dividend_yield = cleaner("forward_dividend_yield")(
+        CommonCleaners.clean_first_value_split_by_space
     )
-    def clean_common_values(cls, value):
-        if cls.value_is_missing(value):
-            return None
-        return cls.common_value_cleaner(value)
 
-    @clean("earnings_date", "exdividend_date", pre=True)
-    def clean_date(cls, value):
-        if cls.value_is_missing(value):
-            return None
+    _clean_forward_dividend_yield_percentage = cleaner("forward_dividend_yield_percentage")(
+        CommonCleaners.clean_second_value_split_by_space
+    )
 
-        dates = value.split("-")
+    _clean_bid_ask_price = cleaner("bid_price", "ask_price")(
+        CommonCleaners.clean_first_value_split_by_x
+    )
 
-        if len(dates) > 1:
-            start, end = dates
-
-            start = pendulum.parse(start, strict=False)
-            end = pendulum.parse(end, strict=False)
-
-            # NOTE: Decided not to go with period range.
-
-            return start
-        else:
-            return pendulum.parse(value, strict=False)
+    _clean_bid_ask_volume = cleaner("bid_size", "ask_size")(
+        CommonCleaners.clean_second_value_split_by_x
+    )
 
     def __lt__(self, other):
-        if self.symbol < other.symbol:
-            return self
-        else:
-            return other
+        if other.__class__ is self.__class__:
+            return self.symbol < other.symbol
 
 
 class SummaryPageGroup(Base):
@@ -175,6 +117,8 @@ class SummaryPageGroup(Base):
         data = self.dict()
         dataframe = DataFrame.from_dict(data["data"])
         dataframe.set_index("symbol", inplace=True)
+        dataframe.drop("quote", axis=1, inplace=True)
+
         if sorted:
             dataframe.sort_index(inplace=True)
         return dataframe  # TODO: none or nan
@@ -186,39 +130,11 @@ class SummaryPageGroup(Base):
         return len(self.data)
 
 
-def clean_summary_field(field):
-    return (
-        field.lower()
-        .replace("(", "")
-        .replace(")", "")
-        .replace("'", "")
-        .replace(".", "")
-        .replace("& ", "")
-        .replace("-", "")
-        .replace("52", "fifty_two")
-        .replace("5y", "five_year")
-        .replace("1y", "one_year")
-        .replace(" ", "_")
-        .strip()
-    )
-
-
 def parse_summary_table(html: HTML):
     quote_summary = html.find("div#quote-summary", first=True)
 
-    data = {}
-
     if quote_summary:
-        rows = [row.text.split("\n") for row in quote_summary.find("tr")]
-        rows = list(filter(lambda row: len(row) == 2, rows))
-
-        for field, value in rows:
-            field = clean_summary_field(field)
-            data[field] = value
-
-    if data:
-        return data
-
+        return table_cleaner(quote_summary)
     else:
         return None
 
@@ -255,6 +171,7 @@ def get_summary_page(
         if quote_data and summary_page_data:
             data = ChainMap(quote_data.dict(), summary_page_data)
             data["symbol"] = symbol
+            data["quote"] = quote_data
 
             return SummaryPage(**data)
 

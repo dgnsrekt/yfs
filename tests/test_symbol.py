@@ -4,7 +4,7 @@ from pytest_regressions import data_regression  # noqa: F401
 
 from pydantic import ValidationError
 
-from yfs.symbol import ValidSymbol, ValidSymbolList
+from yfs.lookup import ValidSymbol, ValidSymbolList
 from yfs.paths import TEST_DIRECTORY
 
 from yfs.exchanges import (

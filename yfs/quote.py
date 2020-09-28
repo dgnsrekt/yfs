@@ -4,39 +4,29 @@ from pydantic import BaseModel as Base
 from pydantic import validator as clean
 from requests_html import HTML
 
-from .cleaner import ValueCleanerBase
+from .cleaner import CommonCleaners, cleaner
 
 
-class Quote(ValueCleanerBase):
+def clean_quote_name(cls, value):
+    value = value.split("(")
+    return value[0].strip()
+
+
+class Quote(Base):
     name: str
     close: Optional[float]
     change: Optional[float]
     percent_change: Optional[float]
 
-    @clean("name", pre=True)
-    def clean_name(cls, value):
-        value = value.split("(")
-        return value[0].strip()
+    _clean_name = cleaner("name")(clean_quote_name)
 
-    @clean("close", pre=True)
-    def clean_close(cls, value):
-        if cls.value_is_missing(value):
-            return None
-        return cls.common_value_cleaner(value)
+    _clean_close = cleaner("close")(CommonCleaners.clean_common_values)
 
-    @clean("change", pre=True)
-    def clean_change(cls, value):
-        if cls.value_is_missing(value):
-            return None
-        change, _ = cls.remove_brakets_and_precent_sign(value).split(" ")
-        return change
+    _clean_change = cleaner("change")(CommonCleaners.clean_first_value_split_by_space)
 
-    @clean("percent_change", pre=True)
-    def clean_percent_change(cls, value):
-        if cls.value_is_missing(value):
-            return None
-        _, percent_change = cls.remove_brakets_and_precent_sign(value).split(" ")
-        return percent_change
+    _clean_percent_change = cleaner("percent_change")(
+        CommonCleaners.clean_second_value_split_by_space
+    )
 
 
 def parse_quote_header_info(html: HTML):
