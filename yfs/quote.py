@@ -1,10 +1,9 @@
 from typing import Optional
 
 from pydantic import BaseModel as Base
-from pydantic import validator as clean
 from requests_html import HTML
 
-from .cleaner import CommonCleaners, cleaner
+from .cleaner import cleaner, CommonCleaners
 
 
 def clean_quote_name(cls, value):

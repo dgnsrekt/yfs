@@ -18,7 +18,7 @@ lint_files = [
     "quote",
     "requestor",
     "summary",
-    "symbol",
+    "lookup",
 ]
 
 

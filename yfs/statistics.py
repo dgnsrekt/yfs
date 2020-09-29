@@ -220,6 +220,7 @@ class TradingInformation(Base):
 
 
 def parse_valuation_table(html: HTML, period_type: PeriodType = PeriodType.QUARTERLY):
+    # IDEA: Parse the period type based on if it is a link or not.
     def clean_date(date_):
         return date_.replace("Current", "").replace("As of Date:", "").strip()
 

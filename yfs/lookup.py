@@ -2,7 +2,7 @@ from typing import List, Optional, Union
 
 from decouple import config
 from pydantic import BaseModel as Base
-from pydantic import Field, PydanticValueError, ValidationError, validator, validate_arguments
+from pydantic import Field, PydanticValueError, validate_arguments, ValidationError, validator
 
 from .asset_types import AssetTypes, VALID_ASSET_TYPES
 from .exchanges import UnitedStatesExchanges, VALID_EXCHANGE_ENUM_VALUES, VALID_EXCHANGE_UNION
