@@ -1,23 +1,75 @@
+"""Contains the classes and functions for scraping a yahoo finance summary page."""
+
 from collections import ChainMap
-from typing import List, Optional
+from concurrent.futures import as_completed, ThreadPoolExecutor
+from typing import Dict, Iterable, List, Optional
 
 import enlighten
 from pandas import DataFrame
-import pendulum
 from pendulum.date import Date
 from pydantic import BaseModel as Base
 from pydantic import Field
-from pydantic import validator as clean
 from requests_html import HTML
 
-from .cleaner import cleaner, field_cleaner, table_cleaner, CommonCleaners
+from .cleaner import cleaner, CommonCleaners, table_cleaner
+from .lookup import fuzzy_search
 from .quote import parse_quote_header_info, Quote
 from .requestor import requestor
-from .lookup import fuzzy_search
 
 
 class SummaryPage(Base):
-    # Model representing the yahoo finance summary page.
+    """Data scraped from the yahoo finance summary page.
+
+    Attributes:
+        symbol (str): Ticker Symbol
+        name (str): Ticker Name
+
+        quote (Quote): Quote header section of the page.
+
+        open (float): Open price.
+        high (float): Days high.
+        low (float): Days low.
+        close (float): Days close price.
+
+        change (float): Dollar change in price.
+        percent_change (float): Percent change in price.
+
+        previous_close (float): Previous days close price.
+
+        bid_price (float): Bid price.
+        bid_size (int): Bid size.
+
+        ask_price (float): Ask price.
+        ask_size (int): Ask size.
+
+        fifty_two_week_high (float): High of the fifty two week range.
+        fifty_two_week_low (float): Low of the fifty two week range.
+
+        volume (int): Volume.
+        average_volume (int): Average Volume.
+
+        market_cap (int): Market capitalization.
+
+        beta_five_year_monthly (float): Five year monthly prices benchmarked against the SPY.
+        pe_ratio_ttm (float): Share Price divided by Earnings Per Share trailing twelve months.
+        eps_ttm (float): Earnings per share trailing twelve months.
+
+        earnings_date (Date): Estimated earnings report release date.
+
+        forward_dividend_yield (float): Estimated dividend yield.
+        forward_dividend_yield_percentage (float): Estimated divided yield percentage.
+        exdividend_date (Date): Ex-Dividend Date.
+
+        one_year_target_est (float): One year target estimation.
+
+    Notes:
+        This class inherits from the pydantic BaseModel which allows for the use
+        of .json() and .dict() for serialization to json strings and dictionaries.
+
+        .json(): Serialize to a JSON object.
+        .dict(): Serialize to a dictionary.
+    """
+
     symbol: str
     name: str  # from quote
 
@@ -97,59 +149,111 @@ class SummaryPage(Base):
         CommonCleaners.clean_second_value_split_by_x
     )
 
-    def __lt__(self, other):
+    def __lt__(self, other) -> bool:  # noqa: ANN001
+        """Compare SummaryPage objects to allow ordering by symbol."""
         if other.__class__ is self.__class__:
             return self.symbol < other.symbol
 
+        return None
+
 
 class SummaryPageGroup(Base):
-    data: List[SummaryPage]
+    """Group of SummaryPage objects from multiple symbols.
+
+    Attributes:
+        pages (SummaryPage):
+
+    Notes:
+        This class inherits from the pydantic BaseModel which allows for the use
+        of .json() and .dict() for serialization to json strings and dictionaries.
+
+        .json(): Serialize to a JSON object.
+        .dict(): Serialize to a dictionary.
+
+    """
+
+    pages: List[SummaryPage] = list()
+
+    def append(self, page: SummaryPage) -> None:
+        """Append a SummaryPage to the SummaryPageGroup.
+
+        Args:
+            page (SummaryPage): A SummaryPage object to add to the group.
+        """
+        if page.__class__ is SummaryPage:
+            self.pages.append(page)
+        else:
+            raise AttributeError("Can only append SummaryPage objects.")
 
     @property
-    def symbols(self):
+    def symbols(self: "SummaryPageGroup") -> List[str]:
+        """List of symbols in the SummaryPageGroup."""
         return [symbol.symbol for symbol in self]
 
-    def sorted(self):
-        return SummaryPageGroup(data=sorted(self.data))
+    def sort(self: "SummaryPageGroup") -> None:
+        """Sort SummaryPage objects by symbol."""
+        self.pages = sorted(self.pages)
 
     @property
-    def dataframe(self, sorted=True):
-        data = self.dict()
-        dataframe = DataFrame.from_dict(data["data"])
-        dataframe.set_index("symbol", inplace=True)
-        dataframe.drop("quote", axis=1, inplace=True)
+    def dataframe(self: "SummaryPageGroup") -> Optional[DataFrame]:
+        """Return a dataframe of multiple SummaryPage objects."""
+        pages = self.dict().get("pages")
 
-        if sorted:
+        if pages:
+            dataframe = DataFrame.from_dict(pages)
+            dataframe.set_index("symbol", inplace=True)
+            dataframe.drop("quote", axis=1, inplace=True)
             dataframe.sort_index(inplace=True)
-        return dataframe  # TODO: none or nan
 
-    def __iter__(self):
-        return iter(self.data)
+            return dataframe  # TODO: none or nan
 
-    def __len__(self):
-        return len(self.data)
+        return None
+
+    def __iter__(self: "SummaryPageGroup") -> Iterable:
+        """Iterate over SummaryPage objects."""
+        return iter(self.pages)
+
+    def __len__(self: "SummaryPageGroup") -> int:
+        """Lenght of SummaryPage objects."""
+        return len(self.pages)
 
 
-def parse_summary_table(html: HTML):
+def parse_summary_table(html: HTML) -> Optional[Dict]:
+    """Parse data from summary table HTML element."""
     quote_summary = html.find("div#quote-summary", first=True)
 
     if quote_summary:
         return table_cleaner(quote_summary)
-    else:
-        return None
+
+    return None
 
 
 class SummaryPageNotFound(AttributeError):
-    pass
+    """Raised when summary page data is not found."""
 
 
 def get_summary_page(
     symbol: str,
-    use_fuzzy_search=True,
-    page_not_found_ok=False,
-    **kwargs,  # fuzzy search exchange_type, asset_type, session, proxies, timeout
-):
+    use_fuzzy_search: bool = True,
+    page_not_found_ok: bool = False,
+    **kwargs,  # noqa: ANN003
+) -> Optional[SummaryPage]:
+    """Get summary page data.
 
+    Args:
+        symbol (str): Ticker symbol
+        use_fuzzy_search (bool): If True does a symbol lookup validation prior
+            to requesting options page data.
+        page_not_found_ok (bool): If True Returns None when page is not found.
+        **kwargs: requestor kwargs (session, proxies, and timeout)
+
+    Returns:
+        SummaryPage: When data is found.
+        None: No data is found and page_not_found_ok is True.
+
+    Raises:
+        SummaryPageNotFound: When a page is not found and the page_not_found_ok arg is false.
+    """
     if use_fuzzy_search:
         fuzzy_response = fuzzy_search(symbol, first_ticker=True, **kwargs)
 
@@ -177,19 +281,19 @@ def get_summary_page(
 
     if page_not_found_ok:
         return None
-    else:
-        raise SummaryPageNotFound(f"{symbol} summary page not found.")
+
+    raise SummaryPageNotFound(f"{symbol} summary page not found.")
 
 
 def _download_summary_pages_without_threads(
     symbols: List[str],
-    use_fuzzy_search,
-    page_not_found_ok,
-    progress_bar,
-    **kwargs,  # fuzzy search exchange_type, asset_type, session, proxies, timeout
-):
+    use_fuzzy_search: bool,
+    page_not_found_ok: bool,
+    progress_bar: bool,
+    **kwargs,  # noqa: ANN003
+) -> Optional[SummaryPageGroup]:
 
-    data = []
+    summary_pages = SummaryPageGroup()
 
     if use_fuzzy_search:
         valid_symbols = []
@@ -212,7 +316,7 @@ def _download_summary_pages_without_threads(
                 pbar.update()
 
         valid_symbols = filter(lambda s: s is not None, valid_symbols)
-        symbols = list(set([s.symbol for s in valid_symbols]))
+        symbols = list(set(s.symbol for s in valid_symbols))
 
     if progress_bar:
         pbar = enlighten.Counter(
@@ -228,29 +332,26 @@ def _download_summary_pages_without_threads(
         )
 
         if results:
-            data.append(results)
+            summary_pages.append(results)
 
         if progress_bar:
             pbar.update()
 
-    if data:
-        return SummaryPageGroup(data=data)
+    if len(summary_pages) > 0:
+        return summary_pages
 
-    else:
-        return None
+    return None
 
 
 def _download_summary_pages_with_threads(
     symbols: List[str],
-    use_fuzzy_search,
-    page_not_found_ok,
-    thread_count,
-    progress_bar,
-    **kwargs,  # fuzzy_search: exchange_type, asset_type, requestor: session, proxies, timeout
-):
-    data = []
-
-    from concurrent.futures import as_completed, ThreadPoolExecutor
+    use_fuzzy_search: bool,
+    page_not_found_ok: bool,
+    thread_count: int,
+    progress_bar: bool,
+    **kwargs,  # noqa: ANN003
+) -> Optional[SummaryPageGroup]:
+    summary_pages = SummaryPageGroup()
 
     if use_fuzzy_search:
         valid_symbols = []
@@ -279,7 +380,7 @@ def _download_summary_pages_with_threads(
                     pbar.update()
 
         valid_symbols = filter(lambda s: s is not None, valid_symbols)
-        symbols = list(set([s.symbol for s in valid_symbols]))
+        symbols = list(set(s.symbol for s in valid_symbols))
 
     with ThreadPoolExecutor(max_workers=thread_count) as executor:
         futures = [
@@ -303,27 +404,47 @@ def _download_summary_pages_with_threads(
             results = future.result()
 
             if results:
-                data.append(results)
+                summary_pages.append(results)
 
             if progress_bar:
                 pbar.update()
 
-    if data:
-        return SummaryPageGroup(data=data)
+    if len(summary_pages) > 0:
+        return summary_pages
 
-    else:
-        return None
+    return None
 
 
-def get_multiple_summary_pages(
+# Might dump this. Let the user put the pieces together.
+def get_multiple_summary_pages(  # pylint: disable=too-many-arguments
     symbols: List[str],
-    use_fuzzy_search=True,
-    page_not_found_ok=False,
-    with_threads=False,
-    thread_count=5,
-    progress_bar=True,
-    **kwargs,  # fuzzy_search: exchange_type, asset_type, requestor: session, proxies, timeout
-):
+    use_fuzzy_search: bool = True,
+    page_not_found_ok: bool = True,
+    with_threads: bool = False,
+    thread_count: int = 5,
+    progress_bar: bool = True,
+    **kwargs,  # noqa: ANN003
+) -> Optional[SummaryPageGroup]:
+    """Get multiple summary pages.
+
+    Args:
+        symbols (List[str]): Ticker symbols or company names
+        use_fuzzy_search (bool): If True does a symbol lookup validation prior
+            to requesting data.
+        page_not_found_ok (bool): If True Returns None when page is not found.
+        with_threads (bool): True Download using threading else with single thread.
+        thread_count (int): number of threads to use if with_threads is set to True.
+        **kwargs: requestor kwargs (session, proxies, and timeout)
+        progress_bar (bool): If True shows the progress bar else the progress bar
+            is not shown.
+
+    Returns:
+        SummaryPageGroup: When data is found.
+        None: No data is found and page_not_found_ok is True.
+
+    Raises:
+        SummaryPageNotFound: When a page is not found and the page_not_found_ok arg is false.
+    """
     symbols = list(set(symbols))
 
     if with_threads:
@@ -335,11 +456,10 @@ def get_multiple_summary_pages(
             progress_bar=progress_bar,
             **kwargs,  # fuzzy search exchange_type, asset_type
         )
-    else:
-        return _download_summary_pages_without_threads(
-            symbols,
-            use_fuzzy_search=use_fuzzy_search,
-            page_not_found_ok=page_not_found_ok,
-            progress_bar=progress_bar,
-            **kwargs,  # fuzzy search exchange_type, asset_type
-        )
+    return _download_summary_pages_without_threads(
+        symbols,
+        use_fuzzy_search=use_fuzzy_search,
+        page_not_found_ok=page_not_found_ok,
+        progress_bar=progress_bar,
+        **kwargs,  # fuzzy search exchange_type, asset_type
+    )

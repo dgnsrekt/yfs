@@ -1,3 +1,5 @@
+"""Module for parsing quote header data from a yahoo finance page."""
+
 from typing import Optional
 
 from pydantic import BaseModel as Base
@@ -6,12 +8,43 @@ from requests_html import HTML
 from .cleaner import cleaner, CommonCleaners
 
 
-def clean_quote_name(cls, value):
+def clean_quote_name(value: str) -> str:
+    """Remove the symbol and strip whitespace from the company name.
+
+    Args:
+        value (str): A company name string parsed from the quote hearder
+            portion of any yahoo finance page.
+
+    Example:
+        |Input             |Output    |
+        |------------------|----------|
+        |Apple Inc. (AAPL) |Apple Inc.|
+
+    Returns:
+        str: Company name with the ticker symbol removed.
+
+    """
     value = value.split("(")
     return value[0].strip()
 
 
 class Quote(Base):
+    """Represents all the data parsed from the quote header section of a yahoo finance page.
+
+    Attributes:
+        name (str): Company name.
+        close (float): Close price.
+        change (float): Dollar change in price.
+        percent_change (float): Percent change in price.
+
+    Notes:
+        This class inherits from the pydantic BaseModel which allows for the use
+        of .json() and .dict() for serialization to json strings and dictionaries.
+
+        .json(): Serialize to a JSON object.
+        .dict(): Serialize to a dictionary.
+    """
+
     name: str
     close: Optional[float]
     change: Optional[float]
@@ -28,12 +61,22 @@ class Quote(Base):
     )
 
 
-def parse_quote_header_info(html: HTML):
-    class QuoteSelectors(Base):
-        name: str = ".D\(ib\).Fz\(18px\)"  # noqa: W605
-        close: str = ".Trsdu\(0\.3s\).Fw\(b\).Fz\(36px\).Mb\(-4px\).D\(ib\)"  # noqa: W605
-        change: str = ".Trsdu\(0\.3s\).Fw\(500\)"  # noqa: W605
-        percent_change: str = ".Trsdu\(0\.3s\).Fw\(500\)"  # noqa: W605
+def parse_quote_header_info(html: HTML) -> Optional[Quote]:
+    """Parse and clean html elements from the quote header info portion of a yahoo finance page.
+
+    Args:
+        html (HTML): An HTML object contaning quote header info data ready to be parse.
+
+    Returns:
+        Quote: Quote object contaning the parsed quote header data if successfully parsed.
+        None: No quote header info data present in the HTML.
+    """
+    quote_selectors = {
+        "name": r".D\(ib\).Fz\(18px\)",
+        "close": r".Trsdu\(0\.3s\).Fw\(b\).Fz\(36px\).Mb\(-4px\).D\(ib\)",
+        "change": r".Trsdu\(0\.3s\).Fw\(500\)",
+        "percent_change": r".Trsdu\(0\.3s\).Fw\(500\)",
+    }
 
     quote_header_info = html.find("div#quote-header-info", first=True)
 
@@ -41,7 +84,7 @@ def parse_quote_header_info(html: HTML):
 
     if quote_header_info:
 
-        for field, selector in QuoteSelectors():
+        for field, selector in quote_selectors.items():
             element = quote_header_info.find(selector)
 
             if element and len(element) == 1:
@@ -49,5 +92,5 @@ def parse_quote_header_info(html: HTML):
 
     if quote_data:
         return Quote(**quote_data)
-    else:
-        return None
+
+    return None

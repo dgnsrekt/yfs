@@ -1,3 +1,5 @@
+"""Module for exchanges organized by region."""
+
 from dataclasses import dataclass
 from enum import Enum
 from typing import Union
@@ -6,6 +8,8 @@ from more_itertools import flatten
 
 
 class UnitedStatesExchanges(str, Enum):
+    """Exchanges based out of the United States."""
+
     CBOE = "Chicago Board Options Exchange"
     CBOT = "Chicago Board of Trade"
     CME = "Chicago Mercantile Exchange"
@@ -24,6 +28,8 @@ class UnitedStatesExchanges(str, Enum):
 
 
 class CanadianExchanges(str, Enum):
+    """Exchanges Based out of Canda."""
+
     NATURAL_RESOURCES = "CNQ"
     NEO = "NEO"
     TORONTO = "Toronto"
@@ -31,6 +37,8 @@ class CanadianExchanges(str, Enum):
 
 
 class SouthAmericanExchanges(str, Enum):
+    """Exchanges Based out of South America."""
+
     BUENOS_AIRES = "Buenos Aires"
     MEXICO = "Mexico"
     SAO_PAOLO = "Sao Paolo"
@@ -38,6 +46,8 @@ class SouthAmericanExchanges(str, Enum):
 
 
 class EuropeanExchanges(str, Enum):
+    """Exchanges Based out of Europe."""
+
     AMSTERDAM = "Amsterdam"
     ATHENS = "Athens"
     BERLIN = "Berlin"
@@ -69,17 +79,23 @@ class EuropeanExchanges(str, Enum):
 
 
 class AfricanExchanges(str, Enum):
+    """Exchanges Based out of Africa."""
+
     CAIRO = "Cairo Stock Exchange"
     JOHANNESBURG = "Johannesburg Stock Exchange"
 
 
 class MiddleEasternExchanges(str, Enum):
+    """Exchanges Based out of MiddleEast."""
+
     PAKISTAN = "PSX"
     SAUDI = "Saudi Stock Exchange"
     TEL_AVIV = "Tel Aviv"
 
 
 class AsianExchanges(str, Enum):
+    """Exchanges Based out of Asia."""
+
     BOMBAY = "Bombay"
     COLOMBO = "Colombo Stock Exchange"
     HONG_KONG = "Hong Kong"
@@ -96,11 +112,15 @@ class AsianExchanges(str, Enum):
 
 
 class AustralianExchanges(str, Enum):
+    """Exchanges Based out of Australia."""
+
     AUSTRALIAN = "Australian"
     NEW_ZEALAND = "New Zealand"
 
 
 class UnkownExchanges(str, Enum):
+    """Exchanges that haven't been identified yet."""
+
     BUD = "BUD"
     SNP = "SNP"
     OPR = "OPR"
@@ -116,7 +136,7 @@ class UnkownExchanges(str, Enum):
     UNKNOWN = "UNKNOWN"  # placeholder incase all exchanges are identified.
 
 
-VALID_EXCHANGE_UNION = Union[
+VALID_EXCHANGE_UNION = Union[  # pylint: disable=invalid-name
     UnitedStatesExchanges,
     CanadianExchanges,
     AustralianExchanges,
@@ -150,7 +170,23 @@ VALID_EXCHANGE_ENUM_VALUES = [exchange.value for exchange in VALID_EXCHANGE_ENUM
 
 
 @dataclass
-class ExchangeTypes:
+class ExchangeTypes:  # pylint: disable=too-many-instance-attributes, no-member
+    """Helper for choosing a valid exchange.
+
+    This is used for filtering out results from a lookup request.
+    Attributes:
+        united_states (Enum): UnitedStatesExchanges
+        canada (Enum): CanadianExchanges
+        australian (Enum): AustralianExchanges
+        asia (Enum): AsianExchanges
+        south_america (Enum): SouthAmericanExchanges
+        europe (Enum): EuropeanExchanges
+        middle_east (Enum): MiddleEasternExchanges
+        africa (Enum): AfricanExchanges
+        unkown (Enum): UnkownExchanges
+
+    """
+
     united_states: Enum = UnitedStatesExchanges
     canada: Enum = CanadianExchanges
     australian: Enum = AustralianExchanges
@@ -162,11 +198,11 @@ class ExchangeTypes:
     unkown: Enum = UnkownExchanges
 
     @classmethod
-    def show(cls):
-        exchange_types = cls().__dataclass_fields__
+    def show(cls) -> None:
+        """Print out all valid exchanges."""
+        exchange_types = cls().__dataclass_fields__  #
         print("Exchange Types:\n")
 
         for exchanges in exchange_types:
             print(exchanges)
-        else:
-            print()
+        print()
