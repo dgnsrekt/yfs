@@ -26,9 +26,11 @@ while True:
         )
 
     elif len(symbols) > 1:
-        output = get_multiple_summary_pages(symbols, with_threads=False, session=session)
-        output = output.sorted()
-        print(output.dataframe)
+        output = get_multiple_summary_pages(symbols, with_threads=True, session=session)
+
+        if output:
+            output.sort()
+            print(output.dataframe)
 
     if output:
         print(output.json(indent=4))

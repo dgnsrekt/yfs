@@ -1,0 +1,53 @@
+docs_dir: content
+extra:
+  social:
+  - icon: fontawesome/brands/twitter
+    link: https://twitter.com/dgnsrekt
+    name: dgnsrekt on twitter
+  - icon: fontawesome/brands/github
+    link: https://github.com/dgnsrekt
+    name: dgnsrekt on twitter
+  - icon: fontawesome/brands/telegram
+    link: https://t.me/dgnsrekt
+    name: dgnsrekt on twitter
+  - icon: fontawesome/solid/paper-plane
+    link: mailto:dgnsrekt@pm.me
+markdown_extensions:
+- pymdownx.highlight
+- pymdownx.superfences
+- admonition
+- attr_list
+- pymdownx.caret
+- pymdownx.mark
+- pymdownx.tilde
+- pymdownx.tasklist:
+    custom_checkbox: true
+- pymdownx.betterem:
+    smart_enable: all
+nav:
+- Home: index.md
+- Examples:
+  - Fuzzy Search Examples: examples/fuzzy-search-examples.md
+  - Summary Page Examples: examples/summary-page-examples.md
+- API Documentation:
+  - Asset Types Module: api/asset-types-module.md
+  - Cleaner Module: api/cleaner-module.md
+  - Exchanges Module: api/exchanges-module.md
+  - Lookup Module: api/lookup-module.md
+  - Options Module: api/options-module.md
+  - Paths Module: api/paths-module.md
+  - Quote Module: api/quote-module.md
+  - Requestor Module: api/requestor-module.md
+  - Statistics Module: api/statistics-module.md
+  - Summary Module: api/summary-module.md
+repo_url: https://github.com/dgnsrekt/yfs
+site_name: YFS
+theme:
+  custom_dir: overrides
+  icon:
+    repo: fontawesome/brands/github-alt
+  name: material
+  palette:
+    accent: indigo
+    primary: deep purple
+    scheme: slate
