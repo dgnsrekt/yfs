@@ -1,0 +1,23 @@
+'{"valuations": [{"date": "2020-09-26", "period_type": "Quarterly", "market_cap_intraday":
+  1850000000000, "enterprise_value": 1870000000000, "trailing_pe": 32.82, "forward_pe":
+  28.09, "peg_ratio_five_year_expected": 2.67, "price_sales_ttm": 7.01, "price_book_mrq":
+  25.61, "enterprise_revenue": 6.83, "enterprise_ebitda": 22.56}, {"date": "2020-06-30",
+  "period_type": "Quarterly", "market_cap_intraday": 1560000000000, "enterprise_value":
+  1580000000000, "trailing_pe": 28.52, "forward_pe": 24.33, "peg_ratio_five_year_expected":
+  2.02, "price_sales_ttm": 6.12, "price_book_mrq": 19.93, "enterprise_revenue": 26.44,
+  "enterprise_ebitda": 95.15}, {"date": "2020-03-31", "period_type": "Quarterly",
+  "market_cap_intraday": 1100000000000, "enterprise_value": 1100000000000, "trailing_pe":
+  20.02, "forward_pe": 19.65, "peg_ratio_five_year_expected": 1.58, "price_sales_ttm":
+  4.34, "price_book_mrq": 12.28, "enterprise_revenue": 18.88, "enterprise_ebitda":
+  66.0}, {"date": "2019-12-31", "period_type": "Quarterly", "market_cap_intraday":
+  1290000000000, "enterprise_value": 1300000000000, "trailing_pe": 24.7, "forward_pe":
+  22.17, "peg_ratio_five_year_expected": 2.03, "price_sales_ttm": 5.25, "price_book_mrq":
+  14.23, "enterprise_revenue": 14.11, "enterprise_ebitda": 43.87}, {"date": "2019-09-30",
+  "period_type": "Quarterly", "market_cap_intraday": 995150000000, "enterprise_value":
+  1010000000000, "trailing_pe": 19.01, "forward_pe": 17.27, "peg_ratio_five_year_expected":
+  2.04, "price_sales_ttm": 4.09, "price_book_mrq": 10.32, "enterprise_revenue": 15.76,
+  "enterprise_ebitda": 50.16}, {"date": "2019-06-30", "period_type": "Quarterly",
+  "market_cap_intraday": 910640000000, "enterprise_value": 943180000000, "trailing_pe":
+  16.58, "forward_pe": 15.97, "peg_ratio_five_year_expected": 1.45, "price_sales_ttm":
+  3.68, "price_book_mrq": 8.47, "enterprise_revenue": 17.53, "enterprise_ebitda":
+  60.04}]}'

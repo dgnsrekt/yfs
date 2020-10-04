@@ -7,5 +7,6 @@ from .common_fixtures import summary_page_data_fixture
 
 
 def test_parse_quote_header_info(data_regression, summary_page_data_fixture):
-    result = parse_quote_header_info(summary_page_data_fixture)
+    _, data = summary_page_data_fixture
+    result = parse_quote_header_info(data)
     data_regression.check(result.json())

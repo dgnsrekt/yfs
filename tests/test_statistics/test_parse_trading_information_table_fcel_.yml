@@ -1,0 +1,13 @@
+'{"beta_five_year_monthly": 2.15, "fifty_two_week_change": 593.94, "sp500_fifty_two_week_change":
+  10.81, "fifty_two_week_high": 3.5, "fifty_two_week_low": 0.23, "fifty_day_moving_average":
+  2.6589, "two_hundred_day_moving_average": 2.2469, "average_three_month_volume":
+  14980000, "average_ten_day_volume": 10240000, "shares_outstanding": 239370000, "float":
+  227140000, "percent_held_by_insiders": 5.26, "percent_held_by_institutions": 9.65,
+  "shares_short": 37290000, "shares_short_date": "2020-08-30", "short_ratio": 2.8,
+  "short_ratio_date": "2020-08-30", "short_percent_of_float": 17.12, "short_percent_of_float_date":
+  "2020-08-30", "short_percent_of_shares_outstanding": 17.11, "short_percent_of_shares_outstanding_date":
+  "2020-08-30", "shares_short_prior_month": 40910000, "shares_short_prior_month_date":
+  "2020-07-30", "forward_annual_dividend_rate": null, "forward_annual_dividend_yield":
+  null, "trailing_annual_dividend_rate": null, "trailing_annual_dividend_yield": null,
+  "five_year_average_dividend_yield": null, "payout_ratio": 0.0, "dividend_date":
+  null, "exdividend_date": null, "last_split_factor": "1:12", "last_split_date": "2019-05-08"}'
