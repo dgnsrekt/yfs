@@ -27,6 +27,13 @@ def option_expiration_data_fixture():
     return get_data(test_response_path)
 
 
+@pytest.fixture(scope="module", params=["aapl", "exfo", "sar", "tsla"])
+def option_page_data_fixture(request):
+    symbol = request.param
+    test_response_path = TEST_DIRECTORY / "data" / f"{symbol}_option_page_raw.html"
+    return get_data(test_response_path)
+
+
 @pytest.fixture(scope="module", params=["aapl", "fcel"])
 def statistics_page_data_fixture(request):
     symbol = request.param

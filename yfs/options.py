@@ -371,7 +371,7 @@ class MutipleOptionChains(Base):
         return None  # NOTE: Maybe Should Raise here
 
 
-def get_table_elements(html: HTML) -> Tuple[HTML, HTML]:
+def get_table_elements(html: HTML) -> Tuple[Optional[HTML], Optional[HTML]]:
     """Parse call and put HTML table elements.
 
     Args:
@@ -531,6 +531,9 @@ def get_options_page(  # pylint: disable=R0913, R0914
             html = HTML(html=response.text, url=url)
 
             calls_table, puts_table = get_table_elements(html)
+
+            if calls_table is None or puts_table is None:
+                continue
 
             calls = parse_option_table(expiration, "call", calls_table)
             puts = parse_option_table(expiration, "put", puts_table)
