@@ -1,4 +1,4 @@
-md5 ecf4234dd97b92aa8b433601817c8c54 content/index.md
+md5 4deb21401513245e45fbac01d42e30f2 content/index.md
 md5 c5541b9bc62ed11325a343e0861c3da0 content/examples/fuzzy-search-examples.md
 md5 dac9f8d916d6eab2dc4c3f323eafb72f content/examples/summary-page-examples.md
 md5 38e0a0b77bf834d4bc2facc5cc3a6696 content/api/asset-types-module.md
