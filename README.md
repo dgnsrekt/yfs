@@ -1,7 +1,7 @@
 # YFS
 ## Yahoo Finance Scraper with a WYSIWYG approach.
 
-Want to scrape data from the summary page use the get_summary_page function. Want to scrape the summary pages of a list of symbols use the get_multiple_summary_pages function. The returned object can be serialized with .json, .dict, ***and depending on the object .dataframe*** method. Each function can accept a proxy to help avoid rate limiting. In fact in the future you can install [requests-whaor](https://github.com/dgnsrekt/requests-whaor) ***ANOTHER WORK IN PROGRESS*** which supplies a rotating proxy to bypass rate limits.
+Want to scrape data from the summary page use the get_summary_page function. Want to scrape the summary pages of a list of symbols use the get_multiple_summary_pages function. The returned object can be serialized with .json, .dict, ***and depending on the object .dataframe*** methods. Each function can accept a proxy to help avoid rate limiting. In fact in the future you can install [requests-whaor](https://github.com/dgnsrekt/requests-whaor) ***ANOTHER WORK IN PROGRESS*** which supplies a rotating proxy to bypass rate limits.
 
 ***Before you start please note adding historical data to this API is not a priority. At some point I will get around to it. My main focus are options, quote information and symbol lookup. So please do not raise issues about historical data.***
 
