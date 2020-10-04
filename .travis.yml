@@ -1,0 +1,12 @@
+dist: xenial
+language: python
+python:
+  - "3.8"
+
+install:
+  - 'pip install nox'
+script: nox --no-reuse-existing-virtualenvs
+
+branches:
+  only:
+  - master

@@ -5,7 +5,7 @@ description = "Scrape Yahoo Finance"
 authors = ["dgnsrekt <dgnsrekt@pm.me>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/dgnsrekt/yfs"
+homepage = "https://dgnsrekt.github.io/yfs/"
 repository = "https://github.com/dgnsrekt/yfs"
 keywords = ["yahoo", "finance", "scraper", "yfs"]
 
