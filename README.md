@@ -1,5 +1,8 @@
 # YFS
 ## Yahoo Finance Scraper with a WYSIWYG approach.
+![Travis (.org)](https://img.shields.io/travis/dgnsrekt/yfs?style=for-the-badge&logo=appveyor)
+![Black](https://img.shields.io/badge/code%20style-black-black?style=for-the-badge&logo=appveyor)
+![GitHub](https://img.shields.io/github/license/dgnsrekt/yfs?style=for-the-badge)
 
 Want to scrape data from the summary page use the get_summary_page function. Want to scrape the summary pages of a list of symbols use the get_multiple_summary_pages function. The returned object can be serialized with .json, .dict, ***and depending on the object .dataframe*** methods. Each function can accept a proxy to help avoid rate limiting. In fact in the future you can install [requests-whaor](https://github.com/dgnsrekt/requests-whaor) ***ANOTHER WORK IN PROGRESS*** which supplies a rotating proxy to bypass rate limits.
 
