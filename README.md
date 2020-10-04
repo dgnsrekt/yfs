@@ -11,6 +11,8 @@ Want to scrape data from the summary page use the get_summary_page function. Wan
 * [x] Option Chains
 * [x] Statistics Page
 
+## [>> To the documentation.](https://dgnsrekt.github.io/yfs/)
+
 ## Quick Start
 
 ### Prereqs
@@ -92,6 +94,7 @@ AMZN    3125.00  -96.26           -2.99         5071692  1565000000000    2020-1
 MSFT     206.19   -6.27           -2.95        34844893  1560000000000    2020-10-21
 TSLA     415.09  -33.07           -7.38        80574089   386785000000    2020-10-21
 ```
+### Next step [fuzzy search examples](https://dgnsrekt.github.io/yfs/examples/fuzzy-search-examples/)
 
 ## TODO
 * [ ] More testing
