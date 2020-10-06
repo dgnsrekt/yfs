@@ -1,8 +1,8 @@
 '{"symbol": "AAPL", "name": "Apple Inc.", "quote": {"name": "Apple Inc.", "close":
-  110.42, "change": 2.2, "percent_change": 2.03}, "open": 108.43, "high": 107.67,
-  "low": 110.97, "close": 110.42, "change": 2.2, "percent_change": 2.03, "previous_close":
+  110.42, "change": 2.2, "percent_change": 2.03}, "open": 108.43, "high": 110.97,
+  "low": 107.67, "close": 110.42, "change": 2.2, "percent_change": 2.03, "previous_close":
   108.22, "bid_price": 110.83, "bid_size": 1100, "ask_price": 110.92, "ask_size":
-  1100, "fifty_two_week_low": 137.98, "fifty_two_week_high": 53.15, "volume": 84359936,
+  1100, "fifty_two_week_low": 53.15, "fifty_two_week_high": 137.98, "volume": 84359936,
   "average_volume": 172807539, "market_cap": 1888000000000, "beta_five_year_monthly":
   1.28, "pe_ratio_ttm": 33.5, "eps_ttm": 3.3, "earnings_date": "2020-10-28", "forward_dividend_yield":
   0.82, "forward_dividend_yield_percentage": 0.76, "exdividend_date": "2020-08-07",
