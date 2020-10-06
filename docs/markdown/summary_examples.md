@@ -22,8 +22,8 @@ COLUMNS = ["open", "high", "low", "close", "volume"]
 search_items = ["TSLA", "GOOGLE", "appl", "aapl"]
 
 results = get_multiple_summary_pages(search_items)
-
 print(results.dataframe[COLUMNS])
 ```
+
 !!! note
     You can pass company names too. This function will do a symbol look up for you using fuzzy_search. The get_multiple_summary_pages returns a SummaryPageGroup which you can serialize to a pandas dataframe.

@@ -1,6 +1,6 @@
 md5 4deb21401513245e45fbac01d42e30f2 content/index.md
 md5 c5541b9bc62ed11325a343e0861c3da0 content/examples/fuzzy-search-examples.md
-md5 f2953acdf551a4c84992bc1761132a66 content/examples/summary-page-examples.md
+md5 7ed154d81f590361b8bdf6326fd1abc9 content/examples/summary-page-examples.md
 md5 59cc7c35f69ba3d194d9260e54d3aca4 content/examples/extra-watchlist-example.md
 md5 38e0a0b77bf834d4bc2facc5cc3a6696 content/api/asset-types-module.md
 md5 0e1de7b8e161c64751268734db188a8a content/api/cleaner-module.md
