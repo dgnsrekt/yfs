@@ -374,7 +374,7 @@
 #### `get_table_elements`
 
 ```python
-def get_table_elements(html: HTML) -> Tuple[HTML, HTML]
+def get_table_elements(html: HTML) -> Tuple[Optional[HTML], Optional[HTML]]
 ```
 
 > Parse call and put HTML table elements.

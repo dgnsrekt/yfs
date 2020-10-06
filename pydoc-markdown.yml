@@ -46,6 +46,9 @@ renderer:
         - title: "Summary Page Examples"
           source: ./docs/markdown/summary_examples.md
 
+        - title: "Extra Watchlist Example"
+          source: ./docs/markdown/watchlist_example.md
+
     - title: API Documentation
       name: api
       children:
@@ -112,6 +115,7 @@ renderer:
       - pymdownx.caret
       - pymdownx.mark
       - pymdownx.tilde
+      - pymdownx.details
 
       - pymdownx.tasklist:
           custom_checkbox: true

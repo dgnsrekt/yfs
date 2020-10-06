@@ -20,6 +20,7 @@ markdown_extensions:
 - pymdownx.caret
 - pymdownx.mark
 - pymdownx.tilde
+- pymdownx.details
 - pymdownx.tasklist:
     custom_checkbox: true
 - pymdownx.betterem:
@@ -29,6 +30,7 @@ nav:
 - Examples:
   - Fuzzy Search Examples: examples/fuzzy-search-examples.md
   - Summary Page Examples: examples/summary-page-examples.md
+  - Extra Watchlist Example: examples/extra-watchlist-example.md
 - API Documentation:
   - Asset Types Module: api/asset-types-module.md
   - Cleaner Module: api/cleaner-module.md
