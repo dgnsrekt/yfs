@@ -113,10 +113,10 @@ class SummaryPage(Base):
 
     _clean_symbol = cleaner("symbol")(CommonCleaners.clean_symbol)
 
-    _clean_highs = cleaner("high", "fifty_two_week_high")(
+    _clean_highs = cleaner("low", "fifty_two_week_low")(
         CommonCleaners.clean_first_value_split_by_dash
     )
-    _clean_lows = cleaner("low", "fifty_two_week_low")(
+    _clean_lows = cleaner("high", "fifty_two_week_high")(
         CommonCleaners.clean_second_value_split_by_dash
     )
     _clean_date = cleaner("earnings_date", "exdividend_date")(CommonCleaners.clean_date)
