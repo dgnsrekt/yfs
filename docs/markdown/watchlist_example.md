@@ -212,6 +212,7 @@ with RequestsWhaor(onion_count=MAX_PROXIES, max_threads=MAX_THREADS) as request_
                 # We will pass on any exceptions.
                 print(exc)
 ```
+
 !!! note
     [ThreadPoolExecutor information here.](https://docs.python.org/3/library/concurrent.futures.html)
 
