@@ -140,7 +140,7 @@
  | def __len__() -> int
 ```
 
-> Lenght of SummaryPage objects.
+> Length of SummaryPage objects.
 
 <a name="summary.parse_summary_table"></a>
 #### `parse_summary_table`
@@ -167,11 +167,11 @@ def get_summary_page(symbol: str, use_fuzzy_search: bool = True, page_not_found_
 > 
 > **Arguments**:
 > 
-> - `symbol` _str_ - Ticker symbol
+> - `symbol` _str_ - Ticker symbol.
 > - `use_fuzzy_search` _bool_ - If True does a symbol lookup validation prior
->   to requesting options page data.
+>   to requesting summary page data.
 > - `page_not_found_ok` _bool_ - If True Returns None when page is not found.
-> - `**kwargs` - requestor kwargs (session, proxies, and timeout)
+> - `**kwargs` - Pass (session, proxies, and timeout) to the requestor function.
 >   
 > 
 > **Returns**:
@@ -195,13 +195,13 @@ def get_multiple_summary_pages(symbols: List[str], use_fuzzy_search: bool = True
 > 
 > **Arguments**:
 > 
-> - `symbols` _List[str]_ - Ticker symbols or company names
+> - `symbols` _List[str]_ - Ticker symbols or company names.
 > - `use_fuzzy_search` _bool_ - If True does a symbol lookup validation prior
 >   to requesting data.
 > - `page_not_found_ok` _bool_ - If True Returns None when page is not found.
-> - `with_threads` _bool_ - True Download using threading else with single thread.
-> - `thread_count` _int_ - number of threads to use if with_threads is set to True.
-> - `**kwargs` - requestor kwargs (session, proxies, and timeout)
+> - `with_threads` _bool_ - If True uses threading.
+> - `thread_count` _int_ - Number of threads to use if with_threads is set to True.
+> - `**kwargs` - Pass (session, proxies, and timeout) to the requestor function.
 > - `progress_bar` _bool_ - If True shows the progress bar else the progress bar
 >   is not shown.
 >   

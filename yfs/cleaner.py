@@ -18,10 +18,10 @@ numbers_with_suffix = {
 
 
 def field_cleaner(field: str) -> str:
-    """Convert field sting from an html response into a snake case variable.
+    """Convert field string from an html response into a snake case variable.
 
     Args:
-        field (str): a dirty field string.
+        field (str): A dirty field string.
 
     Example:
         |Input             |  Output                |
@@ -32,7 +32,7 @@ def field_cleaner(field: str) -> str:
         |PE Ratio (TTM)    | pe_ratio_ttm           |
 
     Returns:
-        str: lowercase and converted to snake case.
+        str: lowercased and converted to snake case.
     """
     return (
         field.lower()
@@ -66,8 +66,8 @@ def table_cleaner(html_table: HTML) -> Optional[Dict]:
         html_table (HTML): HTML object parsed from a table section.
 
     Returns:
-        dict: cleaned fields (keys) and string (values) ready to be cleaned.
-        None: If html_table does not contain table elements.
+        dict: cleaned fields (keys) and string (values).
+        None: if html_table does not contain table elements.
     """
     rows = [row.text.split("\n") for row in html_table.find("tr")]
     rows = list(filter(lambda row: len(row) == 2, rows))
@@ -89,7 +89,7 @@ cleaner = partial(validator, pre=True, allow_reuse=True)
 
 
 class CommonCleaners:
-    """Contains the most commonly used value cleaning methods."""
+    """Contains the most commonly used methods for cleaning values."""
 
     @staticmethod
     def remove_comma(value: str) -> str:

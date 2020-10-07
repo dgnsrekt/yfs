@@ -48,9 +48,9 @@
 <a name="exchanges.ExchangeTypes"></a>
 ## `ExchangeTypes`
 
-> Helper for choosing a valid exchange.
+> Helper for choosing a valid exchange region.
 > 
-> This is used for filtering out results from a lookup request.
+> This is used for filtering out results from a fuzzy_search request.
 > 
 > **Attributes**:
 > 

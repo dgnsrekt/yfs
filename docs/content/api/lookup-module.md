@@ -1,4 +1,4 @@
-> Contains the classes and functions for using the yahoo finance search.
+> Contains the classes and functions for using the yahoo finance look up.
 
 <a name="lookup.ExchangeNotFoundError"></a>
 ## `ExchangeNotFoundError`
@@ -13,12 +13,12 @@
 <a name="lookup.ValidSymbol"></a>
 ## `ValidSymbol`
 
-> A valid symbol reponse from the yahoo finance quote lookup search bar.
+> A valid symbol response from the yahoo finance quote lookup search bar.
 > 
 > **Attributes**:
 > 
 > - `symbol` _str_ - A valid ticker symbol abbreviation.
-> - `name` _str_ - The company name.
+> - `name` _str_ - Company name.
 > - `exchange` _st_ - A valid market exchange.
 >   The exchange str will be validated against all of the valid exchange
 >   enums found in the yfs.exchanges module.
@@ -79,7 +79,7 @@
 <a name="lookup.ValidSymbolList"></a>
 ## `ValidSymbolList`
 
-> A list of symbol reponses from the yahoo finance quote lookup search bar.
+> A list of symbol responses from the yahoo finance quote lookup search bar.
 > 
 > **Attributes**:
 > 
@@ -195,20 +195,20 @@ def fuzzy_search(quote_lookup: str, exchange_type: VALID_EXCHANGE_UNION = United
 > **Arguments**:
 > 
 > - `quote_lookup` - The company name or symbol to search for.
-> - `exchange_type` - One of the yfs.exchanges enums. Default is UnitedStatesExchanges
+> - `exchange_type` - One of the yfs.exchanges enums. Default is UnitedStatesExchanges.
 > - `asset_type` - One of the yfs.asset_type.AssetTypes. Default is AssetTypes.EQUITY
 > - `first_ticker` - If set to true returns the first ValidSymbol in the ValidSymbolList.
 >   This is normally the best recommended match from the yahoo finance quote lookup.
-> - `**kwargs` - pass session, proxies, and timeout to the requestor
+> - `**kwargs` - Pass (session, proxies, and timeout) to the requestor function.
 >   
 > 
 > **Returns**:
 > 
 > - `ValidSymbol` - If first_ticker is set to true and a valid ticker response is found.
-> - `ValidSymbolList` - if first_ticker is set to false and a list of valid ticker
+> - `ValidSymbolList` - If first_ticker is set to false and a list of valid ticker
 >   responses are found.
 > - `None` - If the yahoo finance quote lookup search returns an empty response or if the
->   response did not meet the exchange and asset type filtering.
+>   response did not meet the exchange and asset type filtering requirements.
 >   
 > 
 > **Raises**:

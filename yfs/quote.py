@@ -12,7 +12,7 @@ def clean_quote_name(value: str) -> str:
     """Remove the symbol and strip whitespace from the company name.
 
     Args:
-        value (str): A company name string parsed from the quote hearder
+        value (str): A company name string parsed from the quote header
             portion of any yahoo finance page.
 
     Example:
@@ -65,10 +65,10 @@ def parse_quote_header_info(html: HTML) -> Optional[Quote]:
     """Parse and clean html elements from the quote header info portion of a yahoo finance page.
 
     Args:
-        html (HTML): An HTML object contaning quote header info data ready to be parse.
+        html (HTML): An HTML object containing quote header info data ready to be parse.
 
     Returns:
-        Quote: Quote object contaning the parsed quote header data if successfully parsed.
+        Quote: Quote object containing the parsed quote header data if successfully parsed.
         None: No quote header info data present in the HTML.
     """
     quote_selectors = {

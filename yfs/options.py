@@ -22,7 +22,7 @@ class ContractExpiration(Base):
 
     Attributes:
         symbol (str): Ticker symbol.
-        timestamp (str): timestamp of expiration date.
+        timestamp (str): Timestamp of expiration date.
         expiration_date (DateTime): Datetime of expiration date.
 
     Notes:
@@ -54,7 +54,7 @@ class ContractExpirationList(Base):
     """Contains Multiple Expirations.
 
     Attributes:
-        expiration_list List[ContractExpiration]: multiple expirations.
+        expiration_list (List[ContractExpiration]): multiple expirations.
 
     Notes:
         This class inherits from the pydantic BaseModel which allows for the use
@@ -89,7 +89,7 @@ class ContractExpirationList(Base):
         self.expiration_list = filtered
 
     def filter_expirations_before(self, before: DateTime) -> None:
-        """Filter out any expiration dates post the before filter date.
+        """Filter out any expiration dates post the before date.
 
         Args:
             before (DateTime): datetime to filter.
@@ -104,7 +104,7 @@ class ContractExpirationList(Base):
         self.expiration_list = filtered
 
     def filter_expirations_between(self, after: DateTime, before: DateTime) -> None:
-        """Filter dates within a range.
+        """Filter dates outside of a after and before range.
 
         Args:
             after (DateTime): datetime to filter.
@@ -123,7 +123,7 @@ class ContractExpirationList(Base):
 
         Args:
             days (int): Number of days to start filtering from. All expirations
-                after these days will be filtered out.
+                which expire prior to the days will be filtered out.
         """
         after = pendulum.now().add(days=days)
         self.filter_expirations_after(after=after)
@@ -133,7 +133,7 @@ class ContractExpirationList(Base):
 
         Args:
             days (int): Number of days to start filtering from. All expirations
-                before these days will be filtered out.
+                which expire post days will be filtered out.
         """
         before = pendulum.now().add(days=days)
         self.filter_expirations_before(before=before)
@@ -145,9 +145,9 @@ class ContractExpirationList(Base):
 
         Args:
             after_days (int): Number of days to start filtering from. All expirations
-                after these days will be filtered out.
+                which expire prior to the days will be filtered out.
             before_days (int): Number of days to start filtering from. All expirations
-                before these days will be filtered out.
+                which expire post days will be filtered out.
         """
         if after_days:
             self.filter_expirations_after_days(days=after_days)
@@ -156,7 +156,7 @@ class ContractExpirationList(Base):
             self.filter_expirations_before_days(days=before_days)
 
     def __len__(self) -> int:
-        """Lenght of the expiration_list."""
+        """Length of the expiration_list."""
         return len(self.expiration_list)
 
     def __iter__(self) -> Iterable:
@@ -164,7 +164,7 @@ class ContractExpirationList(Base):
         return iter(self.expiration_list)
 
     def __add__(self, other: "ContractExpirationList") -> Optional["ContractExpirationList"]:
-        """Combine two ContractExpirationLists."""
+        """Combine two ContractExpirationLists using the + operator."""
         if self.__class__ == other.__class__:
             expiration_list = self.expiration_list + other.expiration_list
             return ContractExpirationList(expiration_list=expiration_list)
@@ -172,21 +172,21 @@ class ContractExpirationList(Base):
 
 
 class OptionContractType(str, Enum):
-    """Enum for option contacts."""
+    """Enum for option contract types."""
 
     CALL = "call"
     PUT = "put"
 
 
 class OptionContract(Base):
-    """Represents a Option Contract.
+    """Represents an Option Contract.
 
     Attributes:
-        symbol (str): Ticker symbol
-        contract_type (OptionContractType): Call or Put
+        symbol (str): Ticker symbol.
+        contract_type (OptionContractType): Call or Put type.
 
         timestamp (str): Raw timestamp scraped from yahoo finance. This string is left
-            untouched to make sure there is no issues with building a URL.
+            untouched to make sure there is no issues when building a URL.
         expiration_date (DateTime): Converted from the timestamp. This allows allows
             sorting and filtering.
         in_the_money (bool): True if strike price is ITM else False.
@@ -194,16 +194,16 @@ class OptionContract(Base):
         contract_name (str): Contract Name.
         last_trade_date (DateTime): Date of last trade.
         strike (float): Contracts strike price.
-        last_price (float): Last price of a transaction between a buyer and a seller.
+        last_price (float): Last price of a transaction between a contract buyer and a seller.
 
         bid (float): Last bid price.
         ask (float): Last ask price.
 
         change (float): Price change in dollars.
-        percent_change (float): Percentage change in dollars.
-        volume (int): Volume
+        percent_change (float): Price change in percentage.
+        volume (int): Volume.
         open_interest (int): Number of contracts opened.
-        implied_volatility (float): Contracts IV.
+        implied_volatility (float): Contract IV.
 
     Notes:
         This class inherits from the pydantic BaseModel which allows for the use
@@ -255,7 +255,7 @@ class OptionsChain(Base):
     Attributes:
         symbol (str): Company symbol.
         expiration_date (DateTime): Contracts expiration date.
-        chain (List[OptionContract]): List of OptionContracts
+        chain (List[OptionContract]): List of OptionContracts.
 
     Notes:
         This class inherits from the pydantic BaseModel which allows for the use
@@ -302,8 +302,8 @@ class OptionsChain(Base):
         return len(self.chain)
 
 
-class MutipleOptionChains(Base):
-    """Multiple Option Chains with multiple expiration date.
+class MultipleOptionChains(Base):
+    """Multiple Option Chains with multiple expiration dates.
 
     Attributes:
         option_chain_list (List[OptionsChain]): List of option chains.
@@ -334,18 +334,18 @@ class MutipleOptionChains(Base):
         return pandas.concat(dataframes, ignore_index=True)
 
     @property
-    def calls(self) -> "MutipleOptionChains":
-        """Return a MutipleOptionChains object with only call contracts."""
+    def calls(self) -> "MultipleOptionChains":
+        """Return a MultipleOptionChains object with only call contracts."""
         calls = [chain.calls for chain in self]
-        return MutipleOptionChains(
+        return MultipleOptionChains(
             option_chain_list=calls, contract_expiration_list=self.contract_expiration_list
         )
 
     @property
-    def puts(self) -> "MutipleOptionChains":
-        """Return a MutipleOptionChains object with only put contracts."""
+    def puts(self) -> "MultipleOptionChains":
+        """Return a MultipleOptionChains object with only put contracts."""
         puts = [chain.puts for chain in self]
-        return MutipleOptionChains(
+        return MultipleOptionChains(
             option_chain_list=puts, contract_expiration_list=self.contract_expiration_list
         )
 
@@ -357,14 +357,14 @@ class MutipleOptionChains(Base):
         """Iterate over option chain list."""
         return iter(self.option_chain_list)
 
-    def __add__(self, other: "MutipleOptionChains") -> Optional["MutipleOptionChains"]:
-        """Concatenate MutipleOptionChains."""
+    def __add__(self, other: "MultipleOptionChains") -> Optional["MultipleOptionChains"]:
+        """Concatenate MultipleOptionChains."""
         if self.__class__ == other.__class__:
             option_chain_list = self.option_chain_list + other.option_chain_list
             contract_expiration_list = (
                 self.contract_expiration_list + other.contract_expiration_list
             )
-            return MutipleOptionChains(
+            return MultipleOptionChains(
                 option_chain_list=option_chain_list,
                 contract_expiration_list=contract_expiration_list,
             )
@@ -431,7 +431,7 @@ def get_option_expirations(
 
     Args:
         symbol (str): Ticker symbol.
-        kwargs: requestor kwargs (session, proxies, and timeout)
+        kwargs: Pass (session, proxies, and timeout) to the requestor function.
 
     Returns:
         ContractExpirationList
@@ -471,21 +471,21 @@ def get_options_page(  # pylint: disable=R0913, R0914
     use_fuzzy_search: bool = True,
     page_not_found_ok: bool = False,
     **kwargs,  # noqa: ANN003
-) -> Optional[Union[OptionsChain, MutipleOptionChains]]:
-    """Get options data from options page.
+) -> Optional[Union[OptionsChain, MultipleOptionChains]]:
+    """Get options data from yahoo finance options page.
 
     Args:
-        symbol (str): Ticker symbol
+        symbol (str): Ticker symbol.
         after_days (int): Number of days to start filtering from. All expirations
-            after these days will be filtered out.
+            which expire prior to the days will be filtered out.
         before_days (int): Number of days to start filtering from. All expirations
-            before these days will be filtered out.
+            which expire post days will be filtered out.
         first_chain (bool): If True returns first chain. Else returns all found chains
             within search range.
-        use_fuzzy_search (bool): If True does a symbol lookup validation prior
+        use_fuzzy_search (bool): If True, does a symbol lookup validation prior
             to requesting options page data.
-        page_not_found_ok (bool): If True Returns None when page is not found.
-        **kwargs: requestor kwargs (session, proxies, and timeout)
+        page_not_found_ok (bool): If True, returns None when page is not found.
+        **kwargs: Pass (session, proxies, and timeout) to the requestor function.
 
     Returns:
         OptionsChain: If first_chain is set to True the first found OptionsChain
@@ -493,7 +493,7 @@ def get_options_page(  # pylint: disable=R0913, R0914
             This is all option contracts from a single expiration and symbol.
         MultipleOptionChains: If first_chain is set to False all OptionsChains within
             the after_days and before_days range are returned. This can have
-            multiple expirations. Even if one expiration date found
+            multiple expirations. Even if one expiration date is found
             the MultipleOptionChains object is returned.
         None: If no contracts are found and page_not_found_ok is True.
 
@@ -551,7 +551,7 @@ def get_options_page(  # pylint: disable=R0913, R0914
 
     if len(mutiple_option_chains) > 0:
 
-        return MutipleOptionChains(
+        return MultipleOptionChains(
             option_chain_list=mutiple_option_chains, contract_expiration_list=expirations_list
         )
 

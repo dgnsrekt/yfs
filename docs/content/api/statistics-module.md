@@ -19,17 +19,17 @@
 > - `market_cap_intraday` _int_ - Calculated using shares_outstanding from the
 >   most recently filed report.
 > - `enterprise_value` _int_ - Measure of a company's total value.
-> - `trailing_pe` _float_ - relative valuation multiple that is based on the
+> - `trailing_pe` _float_ - Relative valuation multiple that is based on the
 >   last 12 months of actual earnings
-> - `forward_pe` _float_ - Version of the ratio of price-to-earnings that uses
->   forecasted earnings for the P/E calculation.
+> - `forward_pe` _float_ - Forward price-to-earnings (forward P/E) is a version of the
+>   ratio of price-to-earnings (P/E) that uses forecasted earnings for the P/E calculation.
 > - `peg_ratio_five_year_expected` _float_ - A valuation metric for determining
 >   the relative trade-off between the price of a stock, the EPS, and the
 >   company's expected growth.
 > - `price_sales_ttm` _float_ - Trailing Twelve Months price to sales ratio.
->   price_book_mrq (float):
->   enterprise_revenue (float):
->   enterprise_ebitda (float):
+> - `price_book_mrq` _float_ - todo
+> - `enterprise_revenue` _float_ - todo
+> - `enterprise_ebitda` _float_ - todo
 >   
 > 
 > **Notes**:
@@ -70,7 +70,7 @@
  | def dataframe() -> DataFrame
 ```
 
-> Valuation Measures Table as a dataframe.
+> Return the Valuation Measures Table as a dataframe.
 
 <a name="statistics.FinancialHighlights"></a>
 ## `FinancialHighlights`
@@ -79,33 +79,33 @@
 > 
 > **Attributes**:
 > 
->   fiscal_year_ends (Date):
->   most_recent_quarter_mrq (Date):
+> - `fiscal_year_ends` _Date_ - todo
+> - `most_recent_quarter_mrq` _Date_ - todo
 >   
->   profit_margin (float):
->   operating_margin_ttm (float):
+> - `profit_margin` _float_ - todo
+> - `operating_margin_ttm` _float_ - todo
 >   
->   return_on_assets_ttm (float):
->   return_on_equity_ttm (float):
+> - `return_on_assets_ttm` _float_ - todo
+> - `return_on_equity_ttm` _float_ - todo
 >   
->   revenue_ttm (int):
->   revenue_per_share_ttm (float):
->   quarterly_revenue_growth_yoy (float):
->   gross_profit_ttm (int):
->   ebitda (int):
->   net_income_avi_to_common_ttm (int):
->   diluted_eps_ttm (float):
->   quarterly_earnings_growth_yoy (float):
+> - `revenue_ttm` _int_ - todo
+> - `revenue_per_share_ttm` _float_ - todo
+> - `quarterly_revenue_growth_yoy` _float_ - todo
+> - `gross_profit_ttm` _int_ - todo
+> - `ebitda` _int_ - todo
+> - `net_income_avi_to_common_ttm` _int_ - todo
+> - `diluted_eps_ttm` _float_ - todo
+> - `quarterly_earnings_growth_yoy` _float_ - todo
 >   
->   total_cash_mrq (int):
->   total_cash_per_share_mrq (float):
->   total_debt_mrq (int):
->   total_debt_equity_mrq (float):
->   current_ratio_mrq (float):
->   book_value_per_share_mrq (float):
+> - `total_cash_mrq` _int_ - todo
+> - `total_cash_per_share_mrq` _float_ - todo
+> - `total_debt_mrq` _int_ - todo
+> - `total_debt_equity_mrq` _float_ - todo
+> - `current_ratio_mrq` _float_ - todo
+> - `book_value_per_share_mrq` _float_ - todo
 >   
->   levered_free_cash_flow_ttm (int):
->   operating_cash_flow_ttm (int):
+> - `levered_free_cash_flow_ttm` _int_ - todo
+> - `operating_cash_flow_ttm` _int_ - todo
 >   
 > 
 > **Notes**:
@@ -123,45 +123,45 @@
 > 
 > **Attributes**:
 > 
->   beta_five_year_monthly (float):
+> - `beta_five_year_monthly` _float_ - todo
 >   
->   fifty_two_week_change (float):
->   sp500_fifty_two_week_change (float):
->   fifty_two_week_high (float):
->   fifty_two_week_low (float):
->   fifty_day_moving_average (float):
->   two_hundred_day_moving_average (float):
+> - `fifty_two_week_change` _float_ - todo
+> - `sp500_fifty_two_week_change` _float_ - todo
+> - `fifty_two_week_high` _float_ - todo
+> - `fifty_two_week_low` _float_ - todo
+> - `fifty_day_moving_average` _float_ - todo
+> - `two_hundred_day_moving_average` _float_ - todo
 >   
->   average_three_month_volume (int):
->   average_ten_day_volume (int):
->   shares_outstanding (int):
->   float (int):
->   percent_held_by_insiders (float):
->   percent_held_by_institutions (float):
+> - `average_three_month_volume` _int_ - todo
+> - `average_ten_day_volume` _int_ - todo
+> - `shares_outstanding` _int_ - todo
+> - `float` _int_ - todo
+> - `percent_held_by_insiders` _float_ - todo
+> - `percent_held_by_institutions` _float_ - todo
 >   
->   shares_short (int):
->   shares_short_date (Date):
->   short_ratio (float):
->   short_ratio_date (Date):
->   short_percent_of_float (float):
->   short_percent_of_float_date (Date):
->   short_percent_of_shares_outstanding (float):
->   short_percent_of_shares_outstanding_date (Date):
->   shares_short_prior_month (int):
->   shares_short_prior_month_date (Date):
+> - `shares_short` _int_ - todo
+> - `shares_short_date` _Date_ - todo
+> - `short_ratio` _float_ - todo
+> - `short_ratio_date` _Date_ - todo
+> - `short_percent_of_float` _float_ - todo
+> - `short_percent_of_float_date` _Date_ - todo
+> - `short_percent_of_shares_outstanding` _float_ - todo
+> - `short_percent_of_shares_outstanding_date` _Date_ - todo
+> - `shares_short_prior_month` _int_ - todo
+> - `shares_short_prior_month_date` _Date_ - todo
 >   
->   forward_annual_dividend_rate (float):
->   forward_annual_dividend_yield (float):
->   trailing_annual_dividend_rate (float):
->   trailing_annual_dividend_yield (float):
+> - `forward_annual_dividend_rate` _float_ - todo
+> - `forward_annual_dividend_yield` _float_ - todo
+> - `trailing_annual_dividend_rate` _float_ - todo
+> - `trailing_annual_dividend_yield` _float_ - todo
 >   
->   five_year_average_dividend_yield (float):
+> - `five_year_average_dividend_yield` _float_ - todo
 >   
->   payout_ratio (float):
->   dividend_date (Date):
->   exdividend_date (Date):
->   last_split_factor (str):
->   last_split_date (Date):
+> - `payout_ratio` _float_ - todo
+> - `dividend_date` _Date_ - todo
+> - `exdividend_date` _Date_ - todo
+> - `last_split_factor` _str_ - todo
+> - `last_split_date` _Date_ - todo
 >   
 > 
 > **Notes**:
@@ -183,14 +183,14 @@ def parse_valuation_table(html: HTML, period_type: PeriodType = PeriodType.QUART
 > 
 > **Arguments**:
 > 
-> - `html` - Html element contatining valuation table data.
+> - `html` - Html element containing valuation table data.
 > - `period_type` _PeriodType_ - The period to be parsed. Only quarterly is currently supported.
 >   
 > 
 > **Returns**:
 > 
 > - `ValuationMeasuresTable` - If data is found.
-> - `None` - No data avaliable.
+> - `None` - No data available.
 
 <a name="statistics.parse_financial_highlights_table"></a>
 #### `parse_financial_highlights_table`
@@ -217,7 +217,7 @@ def parse_trading_information_table(html: HTML) -> Optional[TradingInformation]
 > 
 > **Attributes**:
 > 
-> - `symbol` _st_ - Ticker Symbol
+> - `symbol` _st_ - Ticker Symbol.
 > - `quote` _Quote_ - Quote data from the quote header section.
 > - `valuation_measures` _ValuationMeasuresTable_ - Valuation Measures Table section.
 > - `financial_highlights` _FinancialHighlights_ - Financial Highlights section.
@@ -239,7 +239,7 @@ def parse_trading_information_table(html: HTML) -> Optional[TradingInformation]
 > 
 > **Attributes**:
 > 
-> - `pages` - Multiple StatisticsPage objects. A page per symbol requested.
+> - `pages` - Multiple StatisticsPage objects. A page for each symbol requested.
 >   
 > 
 > **Notes**:
@@ -275,11 +275,10 @@ def get_statistics_page(symbol: str, use_fuzzy_search: bool = True, page_not_fou
 > 
 > **Arguments**:
 > 
-> - `symbol` _str_ - Ticker symbol
-> - `use_fuzzy_search` _bool_ - If True does a symbol lookup validation prior
->   to requesting options page data.
+> - `symbol` _str_ - Ticker symbol.
+> - `use_fuzzy_search` _bool_ - If True validates symbol prior to requesting options page data.
 > - `page_not_found_ok` _bool_ - If True Returns None when page is not found.
-> - `**kwargs` - requestor kwargs (session, proxies, and timeout)
+> - `**kwargs` - Pass (session, proxies, and timeout) to the requestor function.
 >   
 > 
 > **Returns**:

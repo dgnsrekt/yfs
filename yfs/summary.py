@@ -214,7 +214,7 @@ class SummaryPageGroup(Base):
         return iter(self.pages)
 
     def __len__(self: "SummaryPageGroup") -> int:
-        """Lenght of SummaryPage objects."""
+        """Length of SummaryPage objects."""
         return len(self.pages)
 
 
@@ -241,11 +241,11 @@ def get_summary_page(
     """Get summary page data.
 
     Args:
-        symbol (str): Ticker symbol
+        symbol (str): Ticker symbol.
         use_fuzzy_search (bool): If True does a symbol lookup validation prior
-            to requesting options page data.
+            to requesting summary page data.
         page_not_found_ok (bool): If True Returns None when page is not found.
-        **kwargs: requestor kwargs (session, proxies, and timeout)
+        **kwargs: Pass (session, proxies, and timeout) to the requestor function.
 
     Returns:
         SummaryPage: When data is found.
@@ -428,13 +428,13 @@ def get_multiple_summary_pages(  # pylint: disable=too-many-arguments
     """Get multiple summary pages.
 
     Args:
-        symbols (List[str]): Ticker symbols or company names
+        symbols (List[str]): Ticker symbols or company names.
         use_fuzzy_search (bool): If True does a symbol lookup validation prior
             to requesting data.
         page_not_found_ok (bool): If True Returns None when page is not found.
-        with_threads (bool): True Download using threading else with single thread.
-        thread_count (int): number of threads to use if with_threads is set to True.
-        **kwargs: requestor kwargs (session, proxies, and timeout)
+        with_threads (bool): If True uses threading.
+        thread_count (int): Number of threads to use if with_threads is set to True.
+        **kwargs: Pass (session, proxies, and timeout) to the requestor function.
         progress_bar (bool): If True shows the progress bar else the progress bar
             is not shown.
 

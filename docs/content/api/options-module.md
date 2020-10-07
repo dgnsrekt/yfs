@@ -8,7 +8,7 @@
 > **Attributes**:
 > 
 > - `symbol` _str_ - Ticker symbol.
-> - `timestamp` _str_ - timestamp of expiration date.
+> - `timestamp` _str_ - Timestamp of expiration date.
 > - `expiration_date` _DateTime_ - Datetime of expiration date.
 >   
 > 
@@ -45,7 +45,7 @@
 > 
 > **Attributes**:
 > 
->   expiration_list List[ContractExpiration]: multiple expirations.
+> - `expiration_list` _List[ContractExpiration]_ - multiple expirations.
 >   
 > 
 > **Notes**:
@@ -92,7 +92,7 @@
  | def filter_expirations_before(before: DateTime) -> None
 ```
 
-> Filter out any expiration dates post the before filter date.
+> Filter out any expiration dates post the before date.
 > 
 > **Arguments**:
 > 
@@ -112,7 +112,7 @@
  | def filter_expirations_between(after: DateTime, before: DateTime) -> None
 ```
 
-> Filter dates within a range.
+> Filter dates outside of a after and before range.
 > 
 > **Arguments**:
 > 
@@ -138,7 +138,7 @@
 > **Arguments**:
 > 
 > - `days` _int_ - Number of days to start filtering from. All expirations
->   after these days will be filtered out.
+>   which expire prior to the days will be filtered out.
 
 <a name="options.ContractExpirationList.filter_expirations_before_days"></a>
 #### `filter_expirations_before_days`
@@ -152,7 +152,7 @@
 > **Arguments**:
 > 
 > - `days` _int_ - Number of days to start filtering from. All expirations
->   before these days will be filtered out.
+>   which expire post days will be filtered out.
 
 <a name="options.ContractExpirationList.filter_expirations_between_days"></a>
 #### `filter_expirations_between_days`
@@ -166,9 +166,9 @@
 > **Arguments**:
 > 
 > - `after_days` _int_ - Number of days to start filtering from. All expirations
->   after these days will be filtered out.
+>   which expire prior to the days will be filtered out.
 > - `before_days` _int_ - Number of days to start filtering from. All expirations
->   before these days will be filtered out.
+>   which expire post days will be filtered out.
 
 <a name="options.ContractExpirationList.__len__"></a>
 #### `__len__`
@@ -177,7 +177,7 @@
  | def __len__() -> int
 ```
 
-> Lenght of the expiration_list.
+> Length of the expiration_list.
 
 <a name="options.ContractExpirationList.__iter__"></a>
 #### `__iter__`
@@ -195,25 +195,25 @@
  | def __add__(other: "ContractExpirationList") -> Optional["ContractExpirationList"]
 ```
 
-> Combine two ContractExpirationLists.
+> Combine two ContractExpirationLists using the + operator.
 
 <a name="options.OptionContractType"></a>
 ## `OptionContractType`
 
-> Enum for option contacts.
+> Enum for option contract types.
 
 <a name="options.OptionContract"></a>
 ## `OptionContract`
 
-> Represents a Option Contract.
+> Represents an Option Contract.
 > 
 > **Attributes**:
 > 
-> - `symbol` _str_ - Ticker symbol
-> - `contract_type` _OptionContractType_ - Call or Put
+> - `symbol` _str_ - Ticker symbol.
+> - `contract_type` _OptionContractType_ - Call or Put type.
 >   
 > - `timestamp` _str_ - Raw timestamp scraped from yahoo finance. This string is left
->   untouched to make sure there is no issues with building a URL.
+>   untouched to make sure there is no issues when building a URL.
 > - `expiration_date` _DateTime_ - Converted from the timestamp. This allows allows
 >   sorting and filtering.
 > - `in_the_money` _bool_ - True if strike price is ITM else False.
@@ -221,16 +221,16 @@
 > - `contract_name` _str_ - Contract Name.
 > - `last_trade_date` _DateTime_ - Date of last trade.
 > - `strike` _float_ - Contracts strike price.
-> - `last_price` _float_ - Last price of a transaction between a buyer and a seller.
+> - `last_price` _float_ - Last price of a transaction between a contract buyer and a seller.
 >   
 > - `bid` _float_ - Last bid price.
 > - `ask` _float_ - Last ask price.
 >   
 > - `change` _float_ - Price change in dollars.
-> - `percent_change` _float_ - Percentage change in dollars.
-> - `volume` _int_ - Volume
+> - `percent_change` _float_ - Price change in percentage.
+> - `volume` _int_ - Volume.
 > - `open_interest` _int_ - Number of contracts opened.
-> - `implied_volatility` _float_ - Contracts IV.
+> - `implied_volatility` _float_ - Contract IV.
 >   
 > 
 > **Notes**:
@@ -250,7 +250,7 @@
 > 
 > - `symbol` _str_ - Company symbol.
 > - `expiration_date` _DateTime_ - Contracts expiration date.
-> - `chain` _List[OptionContract]_ - List of OptionContracts
+> - `chain` _List[OptionContract]_ - List of OptionContracts.
 >   
 > 
 > **Notes**:
@@ -297,10 +297,10 @@
 
 > Return the number of OptionContracts in the OptionChain.
 
-<a name="options.MutipleOptionChains"></a>
-## `MutipleOptionChains`
+<a name="options.MultipleOptionChains"></a>
+## `MultipleOptionChains`
 
-> Multiple Option Chains with multiple expiration date.
+> Multiple Option Chains with multiple expiration dates.
 > 
 > **Attributes**:
 > 
@@ -316,7 +316,7 @@
 > - `.json()` - Serialize to a JSON object.
 > - `.dict()` - Serialize to a dictionary.
 
-<a name="options.MutipleOptionChains.dataframe"></a>
+<a name="options.MultipleOptionChains.dataframe"></a>
 #### `dataframe`
 
 ```python
@@ -325,25 +325,25 @@
 
 > Return a dataframe of multiple option chains.
 
-<a name="options.MutipleOptionChains.calls"></a>
+<a name="options.MultipleOptionChains.calls"></a>
 #### `calls`
 
 ```python
- | def calls() -> "MutipleOptionChains"
+ | def calls() -> "MultipleOptionChains"
 ```
 
-> Return a MutipleOptionChains object with only call contracts.
+> Return a MultipleOptionChains object with only call contracts.
 
-<a name="options.MutipleOptionChains.puts"></a>
+<a name="options.MultipleOptionChains.puts"></a>
 #### `puts`
 
 ```python
- | def puts() -> "MutipleOptionChains"
+ | def puts() -> "MultipleOptionChains"
 ```
 
-> Return a MutipleOptionChains object with only put contracts.
+> Return a MultipleOptionChains object with only put contracts.
 
-<a name="options.MutipleOptionChains.__len__"></a>
+<a name="options.MultipleOptionChains.__len__"></a>
 #### `__len__`
 
 ```python
@@ -352,7 +352,7 @@
 
 > Return the number of option chains.
 
-<a name="options.MutipleOptionChains.__iter__"></a>
+<a name="options.MultipleOptionChains.__iter__"></a>
 #### `__iter__`
 
 ```python
@@ -361,14 +361,14 @@
 
 > Iterate over option chain list.
 
-<a name="options.MutipleOptionChains.__add__"></a>
+<a name="options.MultipleOptionChains.__add__"></a>
 #### `__add__`
 
 ```python
- | def __add__(other: "MutipleOptionChains") -> Optional["MutipleOptionChains"]
+ | def __add__(other: "MultipleOptionChains") -> Optional["MultipleOptionChains"]
 ```
 
-> Concatenate MutipleOptionChains.
+> Concatenate MultipleOptionChains.
 
 <a name="options.get_table_elements"></a>
 #### `get_table_elements`
@@ -421,7 +421,7 @@ def get_option_expirations(symbol: str, **kwargs) -> Optional[ContractExpiration
 > **Arguments**:
 > 
 > - `symbol` _str_ - Ticker symbol.
-> - `kwargs` - requestor kwargs (session, proxies, and timeout)
+> - `kwargs` - Pass (session, proxies, and timeout) to the requestor function.
 >   
 > 
 > **Returns**:
@@ -437,24 +437,24 @@ def get_option_expirations(symbol: str, **kwargs) -> Optional[ContractExpiration
 #### `get_options_page`
 
 ```python
-def get_options_page(symbol: str, after_days: int = None, before_days: int = None, first_chain: bool = False, use_fuzzy_search: bool = True, page_not_found_ok: bool = False, **kwargs, ,) -> Optional[Union[OptionsChain, MutipleOptionChains]]
+def get_options_page(symbol: str, after_days: int = None, before_days: int = None, first_chain: bool = False, use_fuzzy_search: bool = True, page_not_found_ok: bool = False, **kwargs, ,) -> Optional[Union[OptionsChain, MultipleOptionChains]]
 ```
 
-> Get options data from options page.
+> Get options data from yahoo finance options page.
 > 
 > **Arguments**:
 > 
-> - `symbol` _str_ - Ticker symbol
+> - `symbol` _str_ - Ticker symbol.
 > - `after_days` _int_ - Number of days to start filtering from. All expirations
->   after these days will be filtered out.
+>   which expire prior to the days will be filtered out.
 > - `before_days` _int_ - Number of days to start filtering from. All expirations
->   before these days will be filtered out.
+>   which expire post days will be filtered out.
 > - `first_chain` _bool_ - If True returns first chain. Else returns all found chains
 >   within search range.
-> - `use_fuzzy_search` _bool_ - If True does a symbol lookup validation prior
+> - `use_fuzzy_search` _bool_ - If True, does a symbol lookup validation prior
 >   to requesting options page data.
-> - `page_not_found_ok` _bool_ - If True Returns None when page is not found.
-> - `**kwargs` - requestor kwargs (session, proxies, and timeout)
+> - `page_not_found_ok` _bool_ - If True, returns None when page is not found.
+> - `**kwargs` - Pass (session, proxies, and timeout) to the requestor function.
 >   
 > 
 > **Returns**:
@@ -464,7 +464,7 @@ def get_options_page(symbol: str, after_days: int = None, before_days: int = Non
 >   This is all option contracts from a single expiration and symbol.
 > - `MultipleOptionChains` - If first_chain is set to False all OptionsChains within
 >   the after_days and before_days range are returned. This can have
->   multiple expirations. Even if one expiration date found
+>   multiple expirations. Even if one expiration date is found
 >   the MultipleOptionChains object is returned.
 > - `None` - If no contracts are found and page_not_found_ok is True.
 >   

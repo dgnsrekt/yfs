@@ -15,7 +15,7 @@ def requestor(
         url (str): The url to send a request to.
         session (Session): A Session object to send a request with.
         proxies (dict): Dictionary mapping protocol to the URL of the proxy.
-        timeout (int): How long to wait for the server to send data.
+        timeout (int): How long to wait for the server to send a response.
     """
     # TODO: try and pass a session with retries plus whaor. pylint: disable=W0511
     if session:

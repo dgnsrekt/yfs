@@ -7,11 +7,11 @@
 def field_cleaner(field: str) -> str
 ```
 
-> Convert field sting from an html response into a snake case variable.
+> Convert field string from an html response into a snake case variable.
 > 
 > **Arguments**:
 > 
-> - `field` _str_ - a dirty field string.
+> - `field` _str_ - A dirty field string.
 >   
 > 
 > **Example**:
@@ -26,7 +26,7 @@ def field_cleaner(field: str) -> str
 > 
 > **Returns**:
 > 
-> - `str` - lowercase and converted to snake case.
+> - `str` - lowercased and converted to snake case.
 
 <a name="cleaner.table_cleaner"></a>
 #### `table_cleaner`
@@ -44,8 +44,8 @@ def table_cleaner(html_table: HTML) -> Optional[Dict]
 > 
 > **Returns**:
 > 
-> - `dict` - cleaned fields (keys) and string (values) ready to be cleaned.
-> - `None` - If html_table does not contain table elements.
+> - `dict` - cleaned fields (keys) and string (values).
+> - `None` - if html_table does not contain table elements.
 
 <a name="cleaner.cleaner"></a>
 #### `cleaner`
@@ -55,7 +55,7 @@ def table_cleaner(html_table: HTML) -> Optional[Dict]
 <a name="cleaner.CommonCleaners"></a>
 ## `CommonCleaners`
 
-> Contains the most commonly used value cleaning methods.
+> Contains the most commonly used methods for cleaning values.
 
 <a name="cleaner.CommonCleaners.remove_comma"></a>
 #### `remove_comma`

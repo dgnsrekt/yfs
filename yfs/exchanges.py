@@ -171,9 +171,10 @@ VALID_EXCHANGE_ENUM_VALUES = [exchange.value for exchange in VALID_EXCHANGE_ENUM
 
 @dataclass
 class ExchangeTypes:  # pylint: disable=too-many-instance-attributes, no-member
-    """Helper for choosing a valid exchange.
+    """Helper for choosing a valid exchange region.
 
-    This is used for filtering out results from a lookup request.
+    This is used for filtering out results from a fuzzy_search request.
+
     Attributes:
         united_states (Enum): UnitedStatesExchanges
         canada (Enum): CanadianExchanges

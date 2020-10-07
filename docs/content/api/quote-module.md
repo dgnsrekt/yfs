@@ -11,7 +11,7 @@ def clean_quote_name(value: str) -> str
 > 
 > **Arguments**:
 > 
-> - `value` _str_ - A company name string parsed from the quote hearder
+> - `value` _str_ - A company name string parsed from the quote header
 >   portion of any yahoo finance page.
 >   
 > 
@@ -58,11 +58,11 @@ def parse_quote_header_info(html: HTML) -> Optional[Quote]
 > 
 > **Arguments**:
 > 
-> - `html` _HTML_ - An HTML object contaning quote header info data ready to be parse.
+> - `html` _HTML_ - An HTML object containing quote header info data ready to be parse.
 >   
 > 
 > **Returns**:
 > 
-> - `Quote` - Quote object contaning the parsed quote header data if successfully parsed.
+> - `Quote` - Quote object containing the parsed quote header data if successfully parsed.
 > - `None` - No quote header info data present in the HTML.
 

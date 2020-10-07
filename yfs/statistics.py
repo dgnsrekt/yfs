@@ -37,17 +37,17 @@ class Valuation(Base):
         market_cap_intraday (int): Calculated using shares_outstanding from the
             most recently filed report.
         enterprise_value (int): Measure of a company's total value.
-        trailing_pe (float): relative valuation multiple that is based on the
+        trailing_pe (float): Relative valuation multiple that is based on the
             last 12 months of actual earnings
-        forward_pe (float): Version of the ratio of price-to-earnings that uses
-            forecasted earnings for the P/E calculation.
+        forward_pe (float): Forward price-to-earnings (forward P/E) is a version of the
+            ratio of price-to-earnings (P/E) that uses forecasted earnings for the P/E calculation.
         peg_ratio_five_year_expected (float): A valuation metric for determining
             the relative trade-off between the price of a stock, the EPS, and the
             company's expected growth.
         price_sales_ttm (float): Trailing Twelve Months price to sales ratio.
-        price_book_mrq (float):
-        enterprise_revenue (float):
-        enterprise_ebitda (float):
+        price_book_mrq (float): todo
+        enterprise_revenue (float): todo
+        enterprise_ebitda (float): todo
 
     Notes:
         This class inherits from the pydantic BaseModel which allows for the use
@@ -109,7 +109,7 @@ class ValuationMeasuresTable(Base):
 
     @property
     def dataframe(self) -> DataFrame:
-        """Valuation Measures Table as a dataframe."""
+        """Return the Valuation Measures Table as a dataframe."""
         data = self.dict()
         dataframe = DataFrame.from_dict(data["valuations"])
         dataframe.set_index("date", inplace=True)
@@ -121,33 +121,33 @@ class FinancialHighlights(Base):
     """Financial highlights section of a yahoo finance statistics page.
 
     Attributes:
-        fiscal_year_ends (Date):
-        most_recent_quarter_mrq (Date):
+        fiscal_year_ends (Date): todo
+        most_recent_quarter_mrq (Date): todo
 
-        profit_margin (float):
-        operating_margin_ttm (float):
+        profit_margin (float): todo
+        operating_margin_ttm (float): todo
 
-        return_on_assets_ttm (float):
-        return_on_equity_ttm (float):
+        return_on_assets_ttm (float): todo
+        return_on_equity_ttm (float): todo
 
-        revenue_ttm (int):
-        revenue_per_share_ttm (float):
-        quarterly_revenue_growth_yoy (float):
-        gross_profit_ttm (int):
-        ebitda (int):
-        net_income_avi_to_common_ttm (int):
-        diluted_eps_ttm (float):
-        quarterly_earnings_growth_yoy (float):
+        revenue_ttm (int): todo
+        revenue_per_share_ttm (float): todo
+        quarterly_revenue_growth_yoy (float): todo
+        gross_profit_ttm (int): todo
+        ebitda (int): todo
+        net_income_avi_to_common_ttm (int): todo
+        diluted_eps_ttm (float): todo
+        quarterly_earnings_growth_yoy (float): todo
 
-        total_cash_mrq (int):
-        total_cash_per_share_mrq (float):
-        total_debt_mrq (int):
-        total_debt_equity_mrq (float):
-        current_ratio_mrq (float):
-        book_value_per_share_mrq (float):
+        total_cash_mrq (int): todo
+        total_cash_per_share_mrq (float): todo
+        total_debt_mrq (int): todo
+        total_debt_equity_mrq (float): todo
+        current_ratio_mrq (float): todo
+        book_value_per_share_mrq (float): todo
 
-        levered_free_cash_flow_ttm (int):
-        operating_cash_flow_ttm (int):
+        levered_free_cash_flow_ttm (int): todo
+        operating_cash_flow_ttm (int): todo
 
     Notes:
         This class inherits from the pydantic BaseModel which allows for the use
@@ -221,45 +221,45 @@ class TradingInformation(Base):
     """Trading information section of a yahoo finance statistics page.
 
     Attributes:
-        beta_five_year_monthly (float):
+        beta_five_year_monthly (float): todo
 
-        fifty_two_week_change (float):
-        sp500_fifty_two_week_change (float):
-        fifty_two_week_high (float):
-        fifty_two_week_low (float):
-        fifty_day_moving_average (float):
-        two_hundred_day_moving_average (float):
+        fifty_two_week_change (float): todo
+        sp500_fifty_two_week_change (float): todo
+        fifty_two_week_high (float): todo
+        fifty_two_week_low (float): todo
+        fifty_day_moving_average (float): todo
+        two_hundred_day_moving_average (float): todo
 
-        average_three_month_volume (int):
-        average_ten_day_volume (int):
-        shares_outstanding (int):
-        float (int):
-        percent_held_by_insiders (float):
-        percent_held_by_institutions (float):
+        average_three_month_volume (int): todo
+        average_ten_day_volume (int): todo
+        shares_outstanding (int): todo
+        float (int): todo
+        percent_held_by_insiders (float): todo
+        percent_held_by_institutions (float): todo
 
-        shares_short (int):
-        shares_short_date (Date):
-        short_ratio (float):
-        short_ratio_date (Date):
-        short_percent_of_float (float):
-        short_percent_of_float_date (Date):
-        short_percent_of_shares_outstanding (float):
-        short_percent_of_shares_outstanding_date (Date):
-        shares_short_prior_month (int):
-        shares_short_prior_month_date (Date):
+        shares_short (int): todo
+        shares_short_date (Date): todo
+        short_ratio (float): todo
+        short_ratio_date (Date): todo
+        short_percent_of_float (float): todo
+        short_percent_of_float_date (Date): todo
+        short_percent_of_shares_outstanding (float): todo
+        short_percent_of_shares_outstanding_date (Date): todo
+        shares_short_prior_month (int): todo
+        shares_short_prior_month_date (Date): todo
 
-        forward_annual_dividend_rate (float):
-        forward_annual_dividend_yield (float):
-        trailing_annual_dividend_rate (float):
-        trailing_annual_dividend_yield (float):
+        forward_annual_dividend_rate (float): todo
+        forward_annual_dividend_yield (float): todo
+        trailing_annual_dividend_rate (float): todo
+        trailing_annual_dividend_yield (float): todo
 
-        five_year_average_dividend_yield (float):
+        five_year_average_dividend_yield (float): todo
 
-        payout_ratio (float):
-        dividend_date (Date):
-        exdividend_date (Date):
-        last_split_factor (str):
-        last_split_date (Date):
+        payout_ratio (float): todo
+        dividend_date (Date): todo
+        exdividend_date (Date): todo
+        last_split_factor (str): todo
+        last_split_date (Date): todo
 
     Notes:
         This class inherits from the pydantic BaseModel which allows for the use
@@ -363,12 +363,12 @@ def parse_valuation_table(
     """Parse and clean fields and rows of a valuation measures table HTML element.
 
     Args:
-        html: Html element contatining valuation table data.
+        html: Html element containing valuation table data.
         period_type (PeriodType): The period to be parsed. Only quarterly is currently supported.
 
     Returns:
         ValuationMeasuresTable: If data is found.
-        None: No data avaliable.
+        None: No data available.
     """
     # IDEA: Parse the period type based on if it is a link or not.
     def clean_date(date_: str) -> str:
@@ -452,7 +452,7 @@ class StatisticsPage(Base):
     """Represents all data you can find on a yahoo finance statistics page.
 
     Attributes:
-        symbol (st): Ticker Symbol
+        symbol (st): Ticker Symbol.
         quote (Quote): Quote data from the quote header section.
         valuation_measures (ValuationMeasuresTable): Valuation Measures Table section.
         financial_highlights (FinancialHighlights): Financial Highlights section.
@@ -478,7 +478,7 @@ class StatisticsPageGroup(Base):
     """Multiple Statistics Pages Group together.
 
     Attributes:
-        pages: Multiple StatisticsPage objects. A page per symbol requested.
+        pages: Multiple StatisticsPage objects. A page for each symbol requested.
 
     Notes:
         This class inherits from the pydantic BaseModel which allows for the use
@@ -523,11 +523,10 @@ def get_statistics_page(
     """Get statistics page data.
 
     Args:
-        symbol (str): Ticker symbol
-        use_fuzzy_search (bool): If True does a symbol lookup validation prior
-            to requesting options page data.
+        symbol (str): Ticker symbol.
+        use_fuzzy_search (bool): If True validates symbol prior to requesting options page data.
         page_not_found_ok (bool): If True Returns None when page is not found.
-        **kwargs: requestor kwargs (session, proxies, and timeout)
+        **kwargs: Pass (session, proxies, and timeout) to the requestor function.
 
     Returns:
         StatisticsPage: When data is found.
