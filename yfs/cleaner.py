@@ -138,13 +138,13 @@ class CommonCleaners:
             |+1.36%    |+1.36  |
 
         Returns:
-            str: Precent sign % removed and whitespace stripped.
+            str: Percent sign % removed and whitespace stripped.
         """
         return value.replace("%", "").strip()
 
     @classmethod
-    def remove_brakets_and_precent_sign(cls, value: str) -> str:
-        """Remove () brakets and % precent signs from string.
+    def remove_brakets_and_percent_sign(cls, value: str) -> str:
+        """Remove () brakets and % percent signs from string.
 
         Args:
             value (str): Contains () backets and % percent sign.
@@ -427,7 +427,7 @@ class CommonCleaners:
         summary page.
 
         Args:
-            value (str): Normally a string containg change and percent change.
+            value (str): Normally a string containing change and percent change.
 
         Example:
             |Input            |Output  |
@@ -441,7 +441,7 @@ class CommonCleaners:
         if cls.value_is_missing(value):
             return None
 
-        value, _ = cls.remove_brakets_and_precent_sign(value).split(" ")
+        value, _ = cls.remove_brakets_and_percent_sign(value).split(" ")
         return value
 
     @classmethod
@@ -454,7 +454,7 @@ class CommonCleaners:
         summary page.
 
         Args:
-            value (str): Normally a string containg change and percent change.
+            value (str): Normally a string containing change and percent change.
 
         Example:
             |Input            |Output  |
@@ -468,7 +468,7 @@ class CommonCleaners:
         if cls.value_is_missing(value):
             return None
 
-        _, percentage = cls.remove_brakets_and_precent_sign(value).split(" ")
+        _, percentage = cls.remove_brakets_and_percent_sign(value).split(" ")
         return percentage
 
     @classmethod

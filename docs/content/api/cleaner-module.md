@@ -130,16 +130,16 @@ def table_cleaner(html_table: HTML) -> Optional[Dict]
 > 
 > **Returns**:
 > 
-> - `str` - Precent sign % removed and whitespace stripped.
+> - `str` - Percent sign % removed and whitespace stripped.
 
-<a name="cleaner.CommonCleaners.remove_brakets_and_precent_sign"></a>
-#### `remove_brakets_and_precent_sign`
+<a name="cleaner.CommonCleaners.remove_brakets_and_percent_sign"></a>
+#### `remove_brakets_and_percent_sign`
 
 ```python
- | def remove_brakets_and_precent_sign(cls, value: str) -> str
+ | def remove_brakets_and_percent_sign(cls, value: str) -> str
 ```
 
-> Remove () brakets and % precent signs from string.
+> Remove () brakets and % percent signs from string.
 > 
 > **Arguments**:
 > 
@@ -449,7 +449,7 @@ def table_cleaner(html_table: HTML) -> Optional[Dict]
 > 
 > **Arguments**:
 > 
-> - `value` _str_ - Normally a string containg change and percent change.
+> - `value` _str_ - Normally a string containing change and percent change.
 >   
 > 
 > **Example**:
@@ -480,7 +480,7 @@ def table_cleaner(html_table: HTML) -> Optional[Dict]
 > 
 > **Arguments**:
 > 
-> - `value` _str_ - Normally a string containg change and percent change.
+> - `value` _str_ - Normally a string containing change and percent change.
 >   
 > 
 > **Example**:

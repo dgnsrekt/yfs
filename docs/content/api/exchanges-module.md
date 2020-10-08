@@ -40,8 +40,8 @@
 
 > Exchanges Based out of Australia.
 
-<a name="exchanges.UnkownExchanges"></a>
-## `UnkownExchanges`
+<a name="exchanges.UnknownExchanges"></a>
+## `UnknownExchanges`
 
 > Exchanges that haven't been identified yet.
 
@@ -62,7 +62,7 @@
 > - `europe` _Enum_ - EuropeanExchanges
 > - `middle_east` _Enum_ - MiddleEasternExchanges
 > - `africa` _Enum_ - AfricanExchanges
-> - `unkown` _Enum_ - UnkownExchanges
+> - `unknown` _Enum_ - UnknownExchanges
 
 <a name="exchanges.ExchangeTypes.show"></a>
 #### `show`

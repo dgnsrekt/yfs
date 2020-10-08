@@ -11,7 +11,7 @@ from yfs.exchanges import (
     EuropeanExchanges,
     SouthAmericanExchanges,
     UnitedStatesExchanges,
-    UnkownExchanges,
+    UnknownExchanges,
 )
 from yfs.asset_types import AssetTypes
 
@@ -39,7 +39,7 @@ def test_valid_symbol_list_object(data_regression, quote_lookup_raw_response):
 valid_symbol_list_filter_parameters = [
     (UnitedStatesExchanges, AssetTypes.EQUITY),
     (UnitedStatesExchanges, AssetTypes.INDEX),
-    (UnkownExchanges, AssetTypes.EQUITY),
+    (UnknownExchanges, AssetTypes.EQUITY),
     (SouthAmericanExchanges, AssetTypes.EQUITY),
     (EuropeanExchanges, AssetTypes.EQUITY),
 ]

@@ -118,7 +118,7 @@ class AustralianExchanges(str, Enum):
     NEW_ZEALAND = "New Zealand"
 
 
-class UnkownExchanges(str, Enum):
+class UnknownExchanges(str, Enum):
     """Exchanges that haven't been identified yet."""
 
     BUD = "BUD"
@@ -133,7 +133,7 @@ class UnkownExchanges(str, Enum):
     TLX = "TLX Exchange"
     INDUSTRY = "Industry"
     XETRA = "XETRA"
-    UNKNOWN = "UNKNOWN"  # placeholder incase all exchanges are identified.
+    UNKNOWN = "UNKNOWN"  # placeholder in case all exchanges are identified.
 
 
 VALID_EXCHANGE_UNION = Union[  # pylint: disable=invalid-name
@@ -145,7 +145,7 @@ VALID_EXCHANGE_UNION = Union[  # pylint: disable=invalid-name
     EuropeanExchanges,
     MiddleEasternExchanges,
     AfricanExchanges,
-    UnkownExchanges,
+    UnknownExchanges,
 ]
 
 VALID_EXCHANGE_ENUMS = list(
@@ -159,7 +159,7 @@ VALID_EXCHANGE_ENUMS = list(
             list(EuropeanExchanges),
             list(MiddleEasternExchanges),
             list(AfricanExchanges),
-            list(UnkownExchanges),
+            list(UnknownExchanges),
         ]
     )
 )
@@ -184,7 +184,7 @@ class ExchangeTypes:  # pylint: disable=too-many-instance-attributes, no-member
         europe (Enum): EuropeanExchanges
         middle_east (Enum): MiddleEasternExchanges
         africa (Enum): AfricanExchanges
-        unkown (Enum): UnkownExchanges
+        unknown (Enum): UnknownExchanges
 
     """
 
@@ -196,7 +196,7 @@ class ExchangeTypes:  # pylint: disable=too-many-instance-attributes, no-member
     europe: Enum = EuropeanExchanges
     middle_east: Enum = MiddleEasternExchanges
     africa: Enum = AfricanExchanges
-    unkown: Enum = UnkownExchanges
+    unknown: Enum = UnknownExchanges
 
     @classmethod
     def show(cls) -> None:

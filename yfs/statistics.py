@@ -21,7 +21,7 @@ from .requestor import requestor
 class PeriodType(str, Enum):
     """Enum which describes the period the data represents."""
 
-    ANNUALY = "Annual"
+    ANNUALLY = "Annually"
     QUARTERLY = "Quarterly"
     MONTHLY = "Monthly"
 
