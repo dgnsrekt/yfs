@@ -26,6 +26,7 @@ lint_files = [
     "cleaner",
     "exchanges",
     "lookup",
+    "multidownloader",
     "options",
     "paths",
     "quote",
@@ -33,6 +34,8 @@ lint_files = [
     "statistics",
     "summary",
 ]
+
+ignore_words = ",".join(["ist", "hel"])
 
 
 @nox.session
@@ -45,11 +48,13 @@ def lint(session):
         "flake8-docstrings",
         "flake8-annotations",
         "pylint",
+        "codespell",
     )
     for file_name in lint_files:
         session.run("black", "--line-length", "99", "--check", f"yfs/{file_name}.py")
         session.run("flake8", "--import-order-style", "google", f"yfs/{file_name}.py")
         session.run("pylint", "--disable=E0401,R0903,W0511", f"yfs/{file_name}.py")
+        session.run("codespell", "-L", ignore_words, f"yfs/{file_name}.py")
 
 
 @nox.session
