@@ -1,10 +1,8 @@
 """Contains the classes and functions for scraping a yahoo finance summary page."""
 
 from collections import ChainMap
-from concurrent.futures import as_completed, ThreadPoolExecutor
 from typing import Dict, Iterable, List, Optional
 
-import enlighten
 from pandas import DataFrame
 from pendulum.date import Date
 from pydantic import BaseModel as Base
@@ -13,6 +11,7 @@ from requests_html import HTML
 
 from .cleaner import cleaner, CommonCleaners, table_cleaner
 from .lookup import fuzzy_search
+from .multidownloader import _download_pages_with_threads, _download_pages_without_threads
 from .quote import parse_quote_header_info, Quote
 from .requestor import requestor
 
@@ -228,10 +227,6 @@ def parse_summary_table(html: HTML) -> Optional[Dict]:
     return None
 
 
-class SummaryPageNotFound(AttributeError):
-    """Raised when summary page data is not found."""
-
-
 def get_summary_page(
     symbol: str,
     use_fuzzy_search: bool = True,
@@ -252,7 +247,7 @@ def get_summary_page(
         None: No data is found and page_not_found_ok is True.
 
     Raises:
-        SummaryPageNotFound: When a page is not found and the page_not_found_ok arg is false.
+        AttributeError: When a page is not found and the page_not_found_ok arg is false.
     """
     if use_fuzzy_search:
         fuzzy_response = fuzzy_search(symbol, first_ticker=True, **kwargs)
@@ -269,10 +264,10 @@ def get_summary_page(
         html = HTML(html=response.text, url=url)
 
         quote_data = parse_quote_header_info(html)
-
         summary_page_data = parse_summary_table(html)
 
         if quote_data and summary_page_data:
+
             data = ChainMap(quote_data.dict(), summary_page_data)
             data["symbol"] = symbol
             data["quote"] = quote_data
@@ -282,140 +277,9 @@ def get_summary_page(
     if page_not_found_ok:
         return None
 
-    raise SummaryPageNotFound(f"{symbol} summary page not found.")
+    raise AttributeError(f"{symbol} summary page not found.")
 
 
-def _download_summary_pages_without_threads(
-    symbols: List[str],
-    use_fuzzy_search: bool,
-    page_not_found_ok: bool,
-    progress_bar: bool,
-    **kwargs,  # noqa: ANN003
-) -> Optional[SummaryPageGroup]:
-
-    summary_pages = SummaryPageGroup()
-
-    if use_fuzzy_search:
-        valid_symbols = []
-
-        if progress_bar:
-            pbar = enlighten.Counter(
-                total=len(symbols), desc="Validating symbols...", unit="symbols"
-            )
-
-        for symbol in symbols:
-            result = fuzzy_search(
-                symbol,
-                first_ticker=True,
-                **kwargs,  # fuzzy search exchange_type, asset_type, session, proxies, timeout
-            )
-
-            valid_symbols.append(result)
-
-            if progress_bar:
-                pbar.update()
-
-        valid_symbols = filter(lambda s: s is not None, valid_symbols)
-        symbols = list(set(s.symbol for s in valid_symbols))
-
-    if progress_bar:
-        pbar = enlighten.Counter(
-            total=len(symbols), desc="Downloading Summary Data...", unit="symbols"
-        )
-
-    for symbol in symbols:
-        results = get_summary_page(
-            symbol,
-            use_fuzzy_search=False,
-            page_not_found_ok=page_not_found_ok,
-            **kwargs,  # fuzzy search exchange_type, asset_type, session, proxies, timeout
-        )
-
-        if results:
-            summary_pages.append(results)
-
-        if progress_bar:
-            pbar.update()
-
-    if len(summary_pages) > 0:
-        return summary_pages
-
-    return None
-
-
-def _download_summary_pages_with_threads(
-    symbols: List[str],
-    use_fuzzy_search: bool,
-    page_not_found_ok: bool,
-    thread_count: int,
-    progress_bar: bool,
-    **kwargs,  # noqa: ANN003
-) -> Optional[SummaryPageGroup]:
-    summary_pages = SummaryPageGroup()
-
-    if use_fuzzy_search:
-        valid_symbols = []
-
-        with ThreadPoolExecutor(max_workers=thread_count) as executor:
-            futures = [
-                executor.submit(
-                    fuzzy_search,
-                    symbol,
-                    first_ticker=True,
-                    **kwargs,  # fuzzy_search: exchange_type, asset_type,
-                    # kwargs also for requestor: session, proxies, timeout
-                )
-                for symbol in symbols
-            ]
-
-            if progress_bar:
-                pbar = enlighten.Counter(
-                    total=len(futures), desc="Validating symbols...", unit="symbols"
-                )
-
-            for future in as_completed(futures):
-                valid_symbols.append(future.result())
-
-                if progress_bar:
-                    pbar.update()
-
-        valid_symbols = filter(lambda s: s is not None, valid_symbols)
-        symbols = list(set(s.symbol for s in valid_symbols))
-
-    with ThreadPoolExecutor(max_workers=thread_count) as executor:
-        futures = [
-            executor.submit(
-                get_summary_page,
-                symbol,
-                use_fuzzy_search=False,
-                page_not_found_ok=page_not_found_ok,
-                **kwargs,  # fuzzy_search: exchange_type, asset_type,
-                # kwargs also for requestor: session, proxies, timeout
-            )
-            for symbol in symbols
-        ]
-
-        if progress_bar:
-            pbar = enlighten.Counter(
-                total=len(futures), desc="Downloading Summary Data...", unit="symbols"
-            )
-
-        for future in as_completed(futures):
-            results = future.result()
-
-            if results:
-                summary_pages.append(results)
-
-            if progress_bar:
-                pbar.update()
-
-    if len(summary_pages) > 0:
-        return summary_pages
-
-    return None
-
-
-# Might dump this. Let the user put the pieces together.
 def get_multiple_summary_pages(  # pylint: disable=too-many-arguments
     symbols: List[str],
     use_fuzzy_search: bool = True,
@@ -443,23 +307,29 @@ def get_multiple_summary_pages(  # pylint: disable=too-many-arguments
         None: No data is found and page_not_found_ok is True.
 
     Raises:
-        SummaryPageNotFound: When a page is not found and the page_not_found_ok arg is false.
+        AttributeError: When a page is not found and the page_not_found_ok arg is false.
     """
     symbols = list(set(symbols))
+    group_object = SummaryPageGroup
+    callable_ = get_summary_page
 
     if with_threads:
-        return _download_summary_pages_with_threads(
+        return _download_pages_with_threads(
+            group_object,
+            callable_,
             symbols,
             use_fuzzy_search=use_fuzzy_search,
             page_not_found_ok=page_not_found_ok,
             thread_count=thread_count,
             progress_bar=progress_bar,
-            **kwargs,  # fuzzy search exchange_type, asset_type
+            **kwargs,
         )
-    return _download_summary_pages_without_threads(
+    return _download_pages_without_threads(
+        group_object,
+        callable_,
         symbols,
         use_fuzzy_search=use_fuzzy_search,
         page_not_found_ok=page_not_found_ok,
         progress_bar=progress_bar,
-        **kwargs,  # fuzzy search exchange_type, asset_type
+        **kwargs,
     )
