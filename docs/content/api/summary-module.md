@@ -151,11 +151,6 @@ def parse_summary_table(html: HTML) -> Optional[Dict]
 
 > Parse data from summary table HTML element.
 
-<a name="summary.SummaryPageNotFound"></a>
-## `SummaryPageNotFound`
-
-> Raised when summary page data is not found.
-
 <a name="summary.get_summary_page"></a>
 #### `get_summary_page`
 
@@ -182,7 +177,7 @@ def get_summary_page(symbol: str, use_fuzzy_search: bool = True, page_not_found_
 > 
 > **Raises**:
 > 
-> - `SummaryPageNotFound` - When a page is not found and the page_not_found_ok arg is false.
+> - `AttributeError` - When a page is not found and the page_not_found_ok arg is false.
 
 <a name="summary.get_multiple_summary_pages"></a>
 #### `get_multiple_summary_pages`
@@ -214,5 +209,5 @@ def get_multiple_summary_pages(symbols: List[str], use_fuzzy_search: bool = True
 > 
 > **Raises**:
 > 
-> - `SummaryPageNotFound` - When a page is not found and the page_not_found_ok arg is false.
+> - `AttributeError` - When a page is not found and the page_not_found_ok arg is false.
 

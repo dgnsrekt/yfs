@@ -232,6 +232,15 @@ def parse_trading_information_table(html: HTML) -> Optional[TradingInformation]
 > - `.json()` - Serialize to a JSON object.
 > - `.dict()` - Serialize to a dictionary.
 
+<a name="statistics.StatisticsPage.__lt__"></a>
+#### `__lt__`
+
+```python
+ | def __lt__(other) -> bool
+```
+
+> Compare StatisticsPage objects to allow ordering by symbol.
+
 <a name="statistics.StatisticsPageGroup"></a>
 ## `StatisticsPageGroup`
 
@@ -250,6 +259,37 @@ def parse_trading_information_table(html: HTML) -> Optional[TradingInformation]
 > - `.json()` - Serialize to a JSON object.
 > - `.dict()` - Serialize to a dictionary.
 
+<a name="statistics.StatisticsPageGroup.append"></a>
+#### `append`
+
+```python
+ | def append(page: StatisticsPage) -> None
+```
+
+> Append a StatisticsPage to the StatisticsPageGroup.
+> 
+> **Arguments**:
+> 
+> - `page` _StatisticsPage_ - A StatisticsPage object to add to the group.
+
+<a name="statistics.StatisticsPageGroup.symbols"></a>
+#### `symbols`
+
+```python
+ | def symbols() -> List[str]
+```
+
+> List of symbols in the StatisticsPageGroup.
+
+<a name="statistics.StatisticsPageGroup.sort"></a>
+#### `sort`
+
+```python
+ | def sort() -> None
+```
+
+> Sort StatisticsPage objects by symbol.
+
 <a name="statistics.StatisticsPageGroup.dataframe"></a>
 #### `dataframe`
 
@@ -259,10 +299,23 @@ def parse_trading_information_table(html: HTML) -> Optional[TradingInformation]
 
 > Return a dataframe of multiple statistics pages.
 
-<a name="statistics.StatisticsPageNotFound"></a>
-## `StatisticsPageNotFound`
+<a name="statistics.StatisticsPageGroup.__iter__"></a>
+#### `__iter__`
 
-> Raised when statistics page data is not found.
+```python
+ | def __iter__() -> Iterable
+```
+
+> Iterate over StatisticsPage objects.
+
+<a name="statistics.StatisticsPageGroup.__len__"></a>
+#### `__len__`
+
+```python
+ | def __len__() -> int
+```
+
+> Length of StatisticsPage objects.
 
 <a name="statistics.get_statistics_page"></a>
 #### `get_statistics_page`
@@ -289,5 +342,37 @@ def get_statistics_page(symbol: str, use_fuzzy_search: bool = True, page_not_fou
 > 
 > **Raises**:
 > 
-> - `StatisticsPageNotFound` - When a page is not found and the page_not_found_ok arg is false.
+> - `AttributeError` - When a page is not found and the page_not_found_ok arg is false.
+
+<a name="statistics.get_multiple_statistics_pages"></a>
+#### `get_multiple_statistics_pages`
+
+```python
+def get_multiple_statistics_pages(symbols: List[str], use_fuzzy_search: bool = True, page_not_found_ok: bool = True, with_threads: bool = False, thread_count: int = 5, progress_bar: bool = True, **kwargs, ,) -> Optional[StatisticsPageGroup]
+```
+
+> Get multiple statistics pages.
+> 
+> **Arguments**:
+> 
+> - `symbols` _List[str]_ - Ticker symbols or company names.
+> - `use_fuzzy_search` _bool_ - If True does a symbol lookup validation prior
+>   to requesting data.
+> - `page_not_found_ok` _bool_ - If True Returns None when page is not found.
+> - `with_threads` _bool_ - If True uses threading.
+> - `thread_count` _int_ - Number of threads to use if with_threads is set to True.
+> - `**kwargs` - Pass (session, proxies, and timeout) to the requestor function.
+> - `progress_bar` _bool_ - If True shows the progress bar else the progress bar
+>   is not shown.
+>   
+> 
+> **Returns**:
+> 
+> - `StatisticsPageGroup` - When data is found.
+> - `None` - No data is found and page_not_found_ok is True.
+>   
+> 
+> **Raises**:
+> 
+> - `AttributeError` - When a page is not found and the page_not_found_ok arg is false.
 

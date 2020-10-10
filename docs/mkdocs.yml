@@ -29,6 +29,7 @@ nav:
 - Home: index.md
 - Examples:
   - Fuzzy Search Examples: examples/fuzzy-search-examples.md
+  - Statistics Page Examples: examples/statistics-page-examples.md
   - Summary Page Examples: examples/summary-page-examples.md
   - Extra Watchlist Example: examples/extra-watchlist-example.md
 - API Documentation:

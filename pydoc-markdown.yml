@@ -43,6 +43,9 @@ renderer:
         - title: "Fuzzy Search Examples"
           source: ./docs/markdown/lookup_examples.md
 
+        - title: "Statistics Page Examples"
+          source: ./docs/markdown/statistics_examples.md
+
         - title: "Summary Page Examples"
           source: ./docs/markdown/summary_examples.md
 
