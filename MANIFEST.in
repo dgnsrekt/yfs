@@ -1,0 +1,14 @@
+include *.lock
+include *.md
+include *.py
+include *.yml
+include .flake8
+recursive-include docs *.html
+recursive-include docs *.md
+recursive-include docs *.txt
+recursive-include docs *.yml
+recursive-include examples *.py
+recursive-include tests *.html
+recursive-include tests *.json
+recursive-include tests *.py
+recursive-include tests *.yml
