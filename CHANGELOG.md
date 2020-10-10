@@ -1,6 +1,27 @@
 # yfs Changelog
 
 
+## [v0.3.0](https://github.com/dgnsrekt/yfs/compare/v0.2.2...v0.3.0) (2020-10-10)
+
+### docs
+* fix missing sectoion in watchlist example. ([b50acfb](https://github.com/dgnsrekt/yfs/commit/b50acfb5674e68237bf349b9da510c317e5083b4))
+* fixed spelling errors. ([dc7f02e](https://github.com/dgnsrekt/yfs/commit/dc7f02e959bd0543bb37eb7d2091f2946bf82716))
+* updated docs, new doc strings, and more examples. ([be9861b](https://github.com/dgnsrekt/yfs/commit/be9861b72861a7c34317a8aca5a136ab104d2be6))
+
+### refactor
+* **summary:** created multidownloader module. ([1beecfb](https://github.com/dgnsrekt/yfs/commit/1beecfb3b0a84b1e7e67ace24902ed59126f98b7))
+
+### feat
+* **statistics:** add get_multiple_statistics_pages function. ([e08e8cc](https://github.com/dgnsrekt/yfs/commit/e08e8cc6989032974fcfd97afa128983e3fa4830))
+
+### test
+* Added more raw test data, statistics tests, and summary tests. ([196d15b](https://github.com/dgnsrekt/yfs/commit/196d15b73ca06f00d176302c2c6bba390fe72912))
+
+### chore
+* updated noxfile. ([dcce524](https://github.com/dgnsrekt/yfs/commit/dcce5246cb47ebbb864dfc445848967b7c7e0086))
+* Added manifest.in ([43fc6d8](https://github.com/dgnsrekt/yfs/commit/43fc6d82a35be02b3a402c99de54e882d085abb4))
+
+
 ## [v0.2.2](https://github.com/dgnsrekt/yfs/compare/v0.2.0...v0.2.2) (2020-10-7)
 
 ### docs
@@ -21,4 +42,4 @@
 ## v0.2.0 (2020-10-4)
 
 
-::> 43 commits in 2 version tags, last considered commit: c5849528de4b0decad0a2a453f88741208c9898b
+::> 52 commits in 3 version tags, last considered commit: 43fc6d82a35be02b3a402c99de54e882d085abb4
