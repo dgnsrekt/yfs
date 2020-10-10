@@ -1,0 +1,9 @@
+'{"symbol": "TWTR", "name": "Twitter, Inc.", "quote": {"name": "Twitter, Inc.", "close":
+  45.9, "change": -0.11, "percent_change": -0.24}, "open": 46.4, "high": 46.41, "low":
+  45.66, "close": 45.9, "change": -0.11, "percent_change": -0.24, "previous_close":
+  46.01, "bid_price": 45.88, "bid_size": 900, "ask_price": 46.09, "ask_size": 1400,
+  "fifty_two_week_low": 20.0, "fifty_two_week_high": 47.87, "volume": 7182326, "average_volume":
+  17407526, "market_cap": 36305000000, "beta_five_year_monthly": 0.81, "pe_ratio_ttm":
+  null, "eps_ttm": -1.58, "earnings_date": "2020-10-29", "forward_dividend_yield":
+  null, "forward_dividend_yield_percentage": null, "exdividend_date": null, "one_year_target_est":
+  37.92}'

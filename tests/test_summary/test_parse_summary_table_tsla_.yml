@@ -1,0 +1,9 @@
+'{"symbol": "TSLA", "name": "Tesla, Inc.", "quote": {"name": "Tesla, Inc.", "close":
+  433.95, "change": 8.03, "percent_change": 1.89}, "open": 430.13, "high": 434.59,
+  "low": 426.47, "close": 433.95, "change": 8.03, "percent_change": 1.89, "previous_close":
+  425.92, "bid_price": 434.41, "bid_size": 1400, "ask_price": 434.5, "ask_size": 800,
+  "fifty_two_week_low": 49.36, "fifty_two_week_high": 502.49, "volume": 28327188,
+  "average_volume": 77580184, "market_cap": 404359000000, "beta_five_year_monthly":
+  1.69, "pe_ratio_ttm": 1124.22, "eps_ttm": 0.39, "earnings_date": "2020-10-21", "forward_dividend_yield":
+  null, "forward_dividend_yield_percentage": null, "exdividend_date": null, "one_year_target_est":
+  309.55}'

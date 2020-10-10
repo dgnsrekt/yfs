@@ -1,0 +1,9 @@
+'{"symbol": "DIA", "name": "SPDR Dow Jones Industrial Average ETF Trust", "quote":
+  {"name": "SPDR Dow Jones Industrial Average ETF Trust", "close": 285.83, "change":
+  1.54, "percent_change": 0.54}, "open": 285.61, "high": 286.8, "low": 284.43, "close":
+  285.83, "change": 1.54, "percent_change": 0.54, "previous_close": 284.29, "bid_price":
+  286.14, "bid_size": 900, "ask_price": 286.48, "ask_size": 900, "fifty_two_week_low":
+  182.1, "fifty_two_week_high": 295.87, "volume": 2549141, "average_volume": 3226983,
+  "market_cap": null, "beta_five_year_monthly": 0.97, "pe_ratio_ttm": null, "eps_ttm":
+  null, "earnings_date": null, "forward_dividend_yield": null, "forward_dividend_yield_percentage":
+  null, "exdividend_date": null, "one_year_target_est": null}'

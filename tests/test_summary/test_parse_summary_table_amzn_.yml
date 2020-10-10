@@ -1,0 +1,9 @@
+'{"symbol": "AMZN", "name": "Amazon.com, Inc.", "quote": {"name": "Amazon.com, Inc.",
+  "close": 3286.65, "change": 96.1, "percent_change": 3.01}, "open": 3210.0, "high":
+  3288.7, "low": 3197.88, "close": 3286.65, "change": 96.1, "percent_change": 3.01,
+  "previous_close": 3190.55, "bid_price": 3296.26, "bid_size": 900, "ask_price": 3297.5,
+  "ask_size": 1200, "fifty_two_week_low": 1626.03, "fifty_two_week_high": 3552.25,
+  "volume": 4721528, "average_volume": 4981015, "market_cap": 1646000000000, "beta_five_year_monthly":
+  1.35, "pe_ratio_ttm": 126.23, "eps_ttm": 26.04, "earnings_date": "2020-10-29", "forward_dividend_yield":
+  null, "forward_dividend_yield_percentage": null, "exdividend_date": null, "one_year_target_est":
+  3726.61}'
