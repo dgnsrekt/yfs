@@ -2,7 +2,7 @@
 
 from collections import ChainMap
 from enum import Enum
-from typing import List, Optional
+from typing import Iterable, List, Optional
 
 import numpy as np
 import pandas
@@ -14,6 +14,7 @@ from requests_html import HTML
 
 from .cleaner import cleaner, CommonCleaners, field_cleaner, table_cleaner
 from .lookup import fuzzy_search
+from .multidownloader import _download_pages_with_threads, _download_pages_without_threads
 from .quote import parse_quote_header_info, Quote
 from .requestor import requestor
 
@@ -473,6 +474,13 @@ class StatisticsPage(Base):
     financial_highlights: FinancialHighlights
     trading_information: TradingInformation
 
+    def __lt__(self, other) -> bool:  # noqa: ANN001
+        """Compare StatisticsPage objects to allow ordering by symbol."""
+        if other.__class__ is self.__class__:
+            return self.symbol < other.symbol
+
+        return None
+
 
 class StatisticsPageGroup(Base):
     """Multiple Statistics Pages Group together.
@@ -489,7 +497,27 @@ class StatisticsPageGroup(Base):
 
     """
 
-    pages: List[StatisticsPage]
+    pages: List[StatisticsPage] = list()
+
+    def append(self, page: StatisticsPage) -> None:
+        """Append a StatisticsPage to the StatisticsPageGroup.
+
+        Args:
+            page (StatisticsPage): A StatisticsPage object to add to the group.
+        """
+        if page.__class__ is StatisticsPage:
+            self.pages.append(page)
+        else:
+            raise AttributeError("Can only append StatisticsPage objects.")
+
+    @property
+    def symbols(self: "StatisticsPageGroup") -> List[str]:
+        """List of symbols in the StatisticsPageGroup."""
+        return [symbol.symbol for symbol in self]
+
+    def sort(self: "StatisticsPageGroup") -> None:
+        """Sort StatisticsPage objects by symbol."""
+        self.pages = sorted(self.pages)
 
     @property
     def dataframe(self: "StatisticsPageGroup") -> DataFrame:
@@ -509,9 +537,13 @@ class StatisticsPageGroup(Base):
         dataframe.sort_index(inplace=True)
         return dataframe
 
+    def __iter__(self: "StatisticsPage") -> Iterable:
+        """Iterate over StatisticsPage objects."""
+        return iter(self.pages)
 
-class StatisticsPageNotFound(AttributeError):
-    """Raised when statistics page data is not found."""
+    def __len__(self: "StatisticsPageGroup") -> int:
+        """Length of StatisticsPage objects."""
+        return len(self.pages)
 
 
 def get_statistics_page(
@@ -533,7 +565,7 @@ def get_statistics_page(
         None: No data is found and page_not_found_ok is True.
 
     Raises:
-        StatisticsPageNotFound: When a page is not found and the page_not_found_ok arg is false.
+        AttributeError: When a page is not found and the page_not_found_ok arg is false.
     """
     if use_fuzzy_search:
         fuzzy_response = fuzzy_search(symbol, first_ticker=True, **kwargs)
@@ -566,4 +598,59 @@ def get_statistics_page(
     if page_not_found_ok:
         return None
 
-    raise StatisticsPageNotFound(f"{symbol} statistics page not found.")
+    raise AttributeError(f"{symbol} statistics page not found.")
+
+
+def get_multiple_statistics_pages(  # pylint: disable=too-many-arguments
+    symbols: List[str],
+    use_fuzzy_search: bool = True,
+    page_not_found_ok: bool = True,
+    with_threads: bool = False,
+    thread_count: int = 5,
+    progress_bar: bool = True,
+    **kwargs,  # noqa: ANN003
+) -> Optional[StatisticsPageGroup]:
+    """Get multiple statistics pages.
+
+    Args:
+        symbols (List[str]): Ticker symbols or company names.
+        use_fuzzy_search (bool): If True does a symbol lookup validation prior
+            to requesting data.
+        page_not_found_ok (bool): If True Returns None when page is not found.
+        with_threads (bool): If True uses threading.
+        thread_count (int): Number of threads to use if with_threads is set to True.
+        **kwargs: Pass (session, proxies, and timeout) to the requestor function.
+        progress_bar (bool): If True shows the progress bar else the progress bar
+            is not shown.
+
+    Returns:
+        StatisticsPageGroup: When data is found.
+        None: No data is found and page_not_found_ok is True.
+
+    Raises:
+        AttributeError: When a page is not found and the page_not_found_ok arg is false.
+    """
+    symbols = list(set(symbols))
+    group_object = StatisticsPageGroup
+    callable_ = get_statistics_page
+
+    if with_threads:
+        return _download_pages_with_threads(
+            group_object,
+            callable_,
+            symbols,
+            use_fuzzy_search=use_fuzzy_search,
+            page_not_found_ok=page_not_found_ok,
+            thread_count=thread_count,
+            progress_bar=progress_bar,
+            **kwargs,
+        )
+    return _download_pages_without_threads(
+        group_object,
+        callable_,
+        symbols,
+        use_fuzzy_search=use_fuzzy_search,
+        page_not_found_ok=page_not_found_ok,
+        progress_bar=progress_bar,
+        **kwargs,
+    )

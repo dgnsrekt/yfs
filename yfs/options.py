@@ -528,6 +528,7 @@ def get_options_page(  # pylint: disable=R0913, R0914
         response = requestor(url, **kwargs)
 
         if response.ok:
+
             html = HTML(html=response.text, url=url)
 
             calls_table, puts_table = get_table_elements(html)
