@@ -2,9 +2,6 @@ from concurrent.futures import as_completed, ThreadPoolExecutor
 
 from nitter_scraper import NitterScraper
 import pandas
-from requests import Session
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
 from requests_whaor import RequestsWhaor
 from yfs import fuzzy_search, get_options_page
 
@@ -30,21 +27,6 @@ with NitterScraper(port=8008) as nitter:
 watchlist = sorted(set(map(lambda cashtag: cashtag.replace("$", "").strip(), watchlist)))
 # Lets sort, remove duplicates, and clean '$' strings from each symbols.
 
-
-def get_session():
-    session = Session()
-    max_retries = Retry(
-        total=20,
-        connect=20,
-        read=20,
-        status_forcelist=[500, 502, 503, 504],
-        respect_retry_after_header=False,
-    )
-    session.mount("http://", HTTPAdapter(max_retries=max_retries))
-    session.mount("https://", HTTPAdapter(max_retries=max_retries))
-    return session
-
-
 valid_symbols = []  # Used to store symbols validated with the fuzzy_search function.
 call_chains = []  # Used to store all the found call option chains.
 
@@ -59,8 +41,8 @@ with RequestsWhaor(onion_count=MAX_PROXIES, max_threads=MAX_THREADS) as request_
     with ThreadPoolExecutor(max_workers=MAX_THREADS) as executor:
         futures = [
             executor.submit(
-                fuzzy_search, ticker, proxies=request_whaor.rotating_proxy, session=get_session()
-            )  # ^--Here we pass the rotating_proxy and session to the fuzzy_search function.
+                fuzzy_search, ticker, session=request_whaor
+            )  # ^--Here we pass request_whaor as a session like object.
             for ticker in watchlist
         ]
 
@@ -78,6 +60,8 @@ with RequestsWhaor(onion_count=MAX_PROXIES, max_threads=MAX_THREADS) as request_
 
         print("found", len(valid_symbols))  # Number of valid symbols found.
 
+        request_whaor.restart_onions()  # Lets get a fresh pool of proxies before the next step.
+
         futures = [
             executor.submit(
                 get_options_page,
@@ -85,8 +69,7 @@ with RequestsWhaor(onion_count=MAX_PROXIES, max_threads=MAX_THREADS) as request_
                 after_days=60,  # Lets get options that have at least 60 days before expiring.
                 first_chain=True,  # We only want the first expiration with all strike prices.
                 use_fuzzy_search=False,  # We did fuzzy search already no need to do it again.
-                proxies=request_whaor.rotating_proxy,  # Pass the rotating_proxy.
-                session=get_session(),  # Pass a session with a retry adapter.
+                session=request_whaor,  # pass request_whaor as a session like object.
                 page_not_found_ok=True,  # return None if the symbol doesn't have an option page.
                 timeout=5,  # Pass a 5 second timeout to the session.
             )
@@ -120,4 +103,5 @@ for chain in call_chains:
 final = pandas.concat(first_otm_strike, ignore_index=True)
 final.drop(columns=["timestamp", "contract_name"], inplace=True)
 final.sort_values(by="implied_volatility", inplace=True)
+final.reset_index(inplace=True)
 print(final.to_string())

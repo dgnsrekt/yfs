@@ -2,7 +2,7 @@ md5 4deb21401513245e45fbac01d42e30f2 content/index.md
 md5 c5541b9bc62ed11325a343e0861c3da0 content/examples/fuzzy-search-examples.md
 md5 8f4abb86458fc4ff472cb3db1c3bb3f4 content/examples/statistics-page-examples.md
 md5 0fd30b6ee3cff55191c51abdaa9d176d content/examples/summary-page-examples.md
-md5 3c44810fd6388485f5dfcfe11824c291 content/examples/extra-watchlist-example.md
+md5 f29585f9925d169825158c6d15c9ce2a content/examples/extra-watchlist-example.md
 md5 9aca642a4c7ae57fc013b511f5adbb98 content/api/asset-types-module.md
 md5 2cd0fb7f1da540d5cf5f2b4ec4256c96 content/api/cleaner-module.md
 md5 5da86aeac0408994c8b6f24dd818e79f content/api/exchanges-module.md
