@@ -50,6 +50,7 @@ class EuropeanExchanges(str, Enum):
 
     AMSTERDAM = "Amsterdam"
     ATHENS = "Athens"
+    BARCELONA = "Barcelona"
     BERLIN = "Berlin"
     BRUSSELS = "Brussels Stock Exchange"
     COPENHAGEN = "Copenhagen"
@@ -100,6 +101,7 @@ class AsianExchanges(str, Enum):
     COLOMBO = "Colombo Stock Exchange"
     HONG_KONG = "Hong Kong"
     JAKARTA = "Jakarta"
+    OSAKA = "Osaka Stock Exchange"
     KOREA = "Korea"
     KOSDAQ = "KOSDAQ"
     KUALA_LUMPUR = "Kuala Lumpur Stock Exchange"
