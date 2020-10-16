@@ -1,4 +1,5 @@
 md5 4deb21401513245e45fbac01d42e30f2 content/index.md
+md5 1151b5cd7fa1d668232d5ea3855599bb content/changelog.md
 md5 c5541b9bc62ed11325a343e0861c3da0 content/examples/fuzzy-search-examples.md
 md5 8f4abb86458fc4ff472cb3db1c3bb3f4 content/examples/statistics-page-examples.md
 md5 0fd30b6ee3cff55191c51abdaa9d176d content/examples/summary-page-examples.md
@@ -13,4 +14,4 @@ md5 50823497f27ea40488fc4b77b9700568 content/api/quote-module.md
 md5 f67b337a8064aff69ad310cc5455e5fc content/api/requestor-module.md
 md5 730eb4649fdc866f96a84e57d989a78c content/api/statistics-module.md
 md5 f7f833c4cbcf89d6272f32edffcc8c0e content/api/summary-module.md
-md5 1d1d67d1741574c79247d249a63152dc mkdocs.yml
+md5 4587261baf3153e053fb1e8818c8ca9d mkdocs.yml

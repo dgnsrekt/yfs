@@ -27,6 +27,7 @@ markdown_extensions:
     smart_enable: all
 nav:
 - Home: index.md
+- Changelog: changelog.md
 - Examples:
   - Fuzzy Search Examples: examples/fuzzy-search-examples.md
   - Statistics Page Examples: examples/statistics-page-examples.md

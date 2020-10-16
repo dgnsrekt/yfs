@@ -37,6 +37,10 @@ renderer:
       name: index
       source: README.md
 
+    - title: Changelog
+      name: changelog
+      source: CHANGELOG.md
+
     - title: Examples
       name: examples
       children:
