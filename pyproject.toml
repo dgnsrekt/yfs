@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "yfs"
-version = "0.3.1"
+version = "0.3.2"
 description = "Scrape Yahoo Finance"
 authors = ["dgnsrekt <dgnsrekt@pm.me>"]
 license = "MIT"
