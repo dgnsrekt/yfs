@@ -9,14 +9,14 @@ class AssetTypes(str, Enum):
     AssetTypes is mostly used to filter down choices of assets from the lookup module.
     """
 
-    CURRENCY = "Currency"
+    CURRENCY = "CURRENCY"
     ETF = "ETF"
-    EQUITY = "Equity"
-    FUND = "Fund"
-    FUTURES = "Futures"
-    INDEX = "Index"
-    MONEY_MARKET = "MoneyMarket"
-    OPTION = "Option"
+    EQUITY = "EQUITY"
+    FUND = "FUND"
+    FUTURES = "FUTURES"
+    INDEX = "INDEX"
+    MONEY_MARKET = "MONEYMARKET"
+    OPTION = "OPTION"
     SHITCOINS = "CRYPTOCURRENCY"
 
 

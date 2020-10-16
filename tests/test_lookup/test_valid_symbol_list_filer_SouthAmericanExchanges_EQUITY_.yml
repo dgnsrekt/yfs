@@ -1,0 +1,5 @@
+'{"symbols": [{"symbol": "AAPL34.SA", "name": "Apple Inc.", "exchange": "Sao Paolo",
+  "asset_type": "EQUITY"}, {"symbol": "AAPL.MX", "name": "Apple Inc.", "exchange":
+  "Mexico", "asset_type": "EQUITY"}, {"symbol": "AAPLD.BA", "name": "APPLE INC", "exchange":
+  "Buenos Aires", "asset_type": "EQUITY"}, {"symbol": "AAPLC.BA", "name": "APPLE INC",
+  "exchange": "Buenos Aires", "asset_type": "EQUITY"}]}'

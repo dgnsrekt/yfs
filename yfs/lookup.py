@@ -94,6 +94,8 @@ class ValidSymbol(Base):
                 is set to True. (Default) is False.
 
         """
+        value = value.upper()
+
         if RAISE_ERROR_ON_UNKOWN_EXCHANGE_OR_ASSET is True:
 
             if value in VALID_ASSET_TYPES:
