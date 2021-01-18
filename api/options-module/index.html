@@ -1,0 +1,1615 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.5">
+    
+    
+      
+        <title>Options Module - YFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.15aa0b43.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.75751829.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#7e56c2">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#contractexpiration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-announce">
+          <div class="md-announce__inner md-grid md-typeset">
+            
+<a href="https://twitter.com/dgnsrekt"> Work in progress, for updates follow <strong>@dgnsrekt</strong> on <span class="twemoji twitter" style="color:#1DA1F2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg></span> <strong>Twitter.</strong>
+</a>
+</div>
+
+          </div>
+        </aside>
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="YFS" class="md-header-nav__button md-logo" aria-label="YFS">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            YFS
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              Options Module
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/dgnsrekt/yfs/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="YFS" class="md-nav__button md-logo" aria-label="YFS">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    YFS
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/dgnsrekt/yfs/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        Examples
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Examples" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          Examples
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/fuzzy-search-examples/" class="md-nav__link">
+        Fuzzy Search Examples
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/statistics-page-examples/" class="md-nav__link">
+        Statistics Page Examples
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/summary-page-examples/" class="md-nav__link">
+        Summary Page Examples
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/extra-watchlist-example/" class="md-nav__link">
+        Extra Watchlist Example
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+      
+      <label class="md-nav__link" for="nav-4">
+        API Documentation
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="API Documentation" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          API Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asset-types-module/" class="md-nav__link">
+        Asset Types Module
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cleaner-module/" class="md-nav__link">
+        Cleaner Module
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exchanges-module/" class="md-nav__link">
+        Exchanges Module
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lookup-module/" class="md-nav__link">
+        Lookup Module
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Options Module
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Options Module
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contractexpiration" class="md-nav__link">
+    ContractExpiration
+  </a>
+  
+    <nav class="md-nav" aria-label="ContractExpiration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convert_to_datetime" class="md-nav__link">
+    convert_to_datetime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__lt__" class="md-nav__link">
+    __lt__
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contractexpirationlist" class="md-nav__link">
+    ContractExpirationList
+  </a>
+  
+    <nav class="md-nav" aria-label="ContractExpirationList">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sort_dates" class="md-nav__link">
+    sort_dates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_expirations_after" class="md-nav__link">
+    filter_expirations_after
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_expirations_before" class="md-nav__link">
+    filter_expirations_before
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_expirations_between" class="md-nav__link">
+    filter_expirations_between
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_expirations_after_days" class="md-nav__link">
+    filter_expirations_after_days
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_expirations_before_days" class="md-nav__link">
+    filter_expirations_before_days
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_expirations_between_days" class="md-nav__link">
+    filter_expirations_between_days
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__len__" class="md-nav__link">
+    __len__
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__iter__" class="md-nav__link">
+    __iter__
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__add__" class="md-nav__link">
+    __add__
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optioncontracttype" class="md-nav__link">
+    OptionContractType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optioncontract" class="md-nav__link">
+    OptionContract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optionschain" class="md-nav__link">
+    OptionsChain
+  </a>
+  
+    <nav class="md-nav" aria-label="OptionsChain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataframe" class="md-nav__link">
+    dataframe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calls" class="md-nav__link">
+    calls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#puts" class="md-nav__link">
+    puts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__len___1" class="md-nav__link">
+    __len__
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multipleoptionchains" class="md-nav__link">
+    MultipleOptionChains
+  </a>
+  
+    <nav class="md-nav" aria-label="MultipleOptionChains">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataframe_1" class="md-nav__link">
+    dataframe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calls_1" class="md-nav__link">
+    calls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#puts_1" class="md-nav__link">
+    puts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__len___2" class="md-nav__link">
+    __len__
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__iter___1" class="md-nav__link">
+    __iter__
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__add___1" class="md-nav__link">
+    __add__
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_table_elements" class="md-nav__link">
+    get_table_elements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse_option_table" class="md-nav__link">
+    parse_option_table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_option_expirations" class="md-nav__link">
+    get_option_expirations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optionpagenotfound" class="md-nav__link">
+    OptionPageNotFound
+  </a>
+  
+    <nav class="md-nav" aria-label="OptionPageNotFound">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_options_page" class="md-nav__link">
+    get_options_page
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../paths-module/" class="md-nav__link">
+        Paths Module
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quote-module/" class="md-nav__link">
+        Quote Module
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../requestor-module/" class="md-nav__link">
+        Requestor Module
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../statistics-module/" class="md-nav__link">
+        Statistics Module
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../summary-module/" class="md-nav__link">
+        Summary Module
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contractexpiration" class="md-nav__link">
+    ContractExpiration
+  </a>
+  
+    <nav class="md-nav" aria-label="ContractExpiration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#convert_to_datetime" class="md-nav__link">
+    convert_to_datetime
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__lt__" class="md-nav__link">
+    __lt__
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contractexpirationlist" class="md-nav__link">
+    ContractExpirationList
+  </a>
+  
+    <nav class="md-nav" aria-label="ContractExpirationList">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sort_dates" class="md-nav__link">
+    sort_dates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_expirations_after" class="md-nav__link">
+    filter_expirations_after
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_expirations_before" class="md-nav__link">
+    filter_expirations_before
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_expirations_between" class="md-nav__link">
+    filter_expirations_between
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_expirations_after_days" class="md-nav__link">
+    filter_expirations_after_days
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_expirations_before_days" class="md-nav__link">
+    filter_expirations_before_days
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter_expirations_between_days" class="md-nav__link">
+    filter_expirations_between_days
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__len__" class="md-nav__link">
+    __len__
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__iter__" class="md-nav__link">
+    __iter__
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__add__" class="md-nav__link">
+    __add__
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optioncontracttype" class="md-nav__link">
+    OptionContractType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optioncontract" class="md-nav__link">
+    OptionContract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optionschain" class="md-nav__link">
+    OptionsChain
+  </a>
+  
+    <nav class="md-nav" aria-label="OptionsChain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataframe" class="md-nav__link">
+    dataframe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calls" class="md-nav__link">
+    calls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#puts" class="md-nav__link">
+    puts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__len___1" class="md-nav__link">
+    __len__
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multipleoptionchains" class="md-nav__link">
+    MultipleOptionChains
+  </a>
+  
+    <nav class="md-nav" aria-label="MultipleOptionChains">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataframe_1" class="md-nav__link">
+    dataframe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calls_1" class="md-nav__link">
+    calls
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#puts_1" class="md-nav__link">
+    puts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__len___2" class="md-nav__link">
+    __len__
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__iter___1" class="md-nav__link">
+    __iter__
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__add___1" class="md-nav__link">
+    __add__
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_table_elements" class="md-nav__link">
+    get_table_elements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse_option_table" class="md-nav__link">
+    parse_option_table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_option_expirations" class="md-nav__link">
+    get_option_expirations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optionpagenotfound" class="md-nav__link">
+    OptionPageNotFound
+  </a>
+  
+    <nav class="md-nav" aria-label="OptionPageNotFound">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get_options_page" class="md-nav__link">
+    get_options_page
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/dgnsrekt/yfs/edit/master/docs/api/options-module.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>Options Module</h1>
+                
+                <blockquote>
+<p>Contains the classes and functions for scraping a yahoo finance option page.</p>
+</blockquote>
+<p><a name="options.ContractExpiration"></a></p>
+<h2 id="contractexpiration"><code>ContractExpiration</code></h2>
+<blockquote>
+<p>Contract Expiration.</p>
+<p><strong>Attributes</strong>:</p>
+<ul>
+<li><code>symbol</code> <em>str</em> - Ticker symbol.</li>
+<li><code>timestamp</code> <em>str</em> - Timestamp of expiration date.</li>
+<li><code>expiration_date</code> <em>DateTime</em> - Datetime of expiration date.</li>
+</ul>
+<p><strong>Notes</strong>:</p>
+<p>This class inherits from the pydantic BaseModel which allows for the use
+  of .json() and .dict() for serialization to json strings and dictionaries.</p>
+<ul>
+<li><code>.json()</code> - Serialize to a JSON object.</li>
+<li><code>.dict()</code> - Serialize to a dictionary.</li>
+</ul>
+</blockquote>
+<p><a name="options.ContractExpiration.convert_to_datetime"></a></p>
+<h4 id="convert_to_datetime"><code>convert_to_datetime</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">convert_to_datetime</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DateTime</span>
+</code></pre></div>
+<blockquote>
+<p>Convert expiration timestamp to datetime.</p>
+</blockquote>
+<p><a name="options.ContractExpiration.__lt__"></a></p>
+<h4 id="__lt__"><code>__lt__</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="s2">&quot;ContractExpiration&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;ContractExpiration&quot;</span><span class="p">]</span>
+</code></pre></div>
+<blockquote>
+<p>Compare expiration_dates for sorting.</p>
+</blockquote>
+<p><a name="options.ContractExpirationList"></a></p>
+<h2 id="contractexpirationlist"><code>ContractExpirationList</code></h2>
+<blockquote>
+<p>Contains Multiple Expirations.</p>
+<p><strong>Attributes</strong>:</p>
+<ul>
+<li><code>expiration_list</code> <em>List[ContractExpiration]</em> - multiple expirations.</li>
+</ul>
+<p><strong>Notes</strong>:</p>
+<p>This class inherits from the pydantic BaseModel which allows for the use
+  of .json() and .dict() for serialization to json strings and dictionaries.</p>
+<ul>
+<li><code>.json()</code> - Serialize to a JSON object.</li>
+<li><code>.dict()</code> - Serialize to a dictionary.</li>
+</ul>
+</blockquote>
+<p><a name="options.ContractExpirationList.sort_dates"></a></p>
+<h4 id="sort_dates"><code>sort_dates</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">sort_dates</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ContractExpiration</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ContractExpiration</span><span class="p">]</span>
+</code></pre></div>
+<blockquote>
+<p>Sort expiration_list by date.</p>
+</blockquote>
+<p><a name="options.ContractExpirationList.filter_expirations_after"></a></p>
+<h4 id="filter_expirations_after"><code>filter_expirations_after</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">filter_expirations_after</span><span class="p">(</span><span class="n">after</span><span class="p">:</span> <span class="n">DateTime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<blockquote>
+<p>Filter out any expiration dates prior to the after date.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>after</code> <em>DateTime</em> - datetime to filter.</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Args</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[01JAN19, 01FEB19, 01MAR19]</td>
+<td>after: 15JAN19</td>
+<td>[01FEB19, 01MAR19]</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><a name="options.ContractExpirationList.filter_expirations_before"></a></p>
+<h4 id="filter_expirations_before"><code>filter_expirations_before</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">filter_expirations_before</span><span class="p">(</span><span class="n">before</span><span class="p">:</span> <span class="n">DateTime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<blockquote>
+<p>Filter out any expiration dates post the before date.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>before</code> <em>DateTime</em> - datetime to filter.</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Args</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[01JAN19, 01FEB19, 01MAR19]</td>
+<td>before: 15JAN19</td>
+<td>[01JAN19]</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><a name="options.ContractExpirationList.filter_expirations_between"></a></p>
+<h4 id="filter_expirations_between"><code>filter_expirations_between</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">filter_expirations_between</span><span class="p">(</span><span class="n">after</span><span class="p">:</span> <span class="n">DateTime</span><span class="p">,</span> <span class="n">before</span><span class="p">:</span> <span class="n">DateTime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<blockquote>
+<p>Filter dates outside of a after and before range.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>after</code> <em>DateTime</em> - datetime to filter.</li>
+<li><code>before</code> <em>DateTime</em> - datetime to filter.</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Args</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[01JAN19, 01FEB19, 01MAR19]</td>
+<td>after: 15JAN19,before: 15JAN19</td>
+<td>[01FEB19, 01MAR19]</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><a name="options.ContractExpirationList.filter_expirations_after_days"></a></p>
+<h4 id="filter_expirations_after_days"><code>filter_expirations_after_days</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">filter_expirations_after_days</span><span class="p">(</span><span class="n">days</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<blockquote>
+<p>Filter expirations only allowing expirations after n days.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>days</code> <em>int</em> - Number of days to start filtering from. All expirations
+  which expire prior to the days will be filtered out.</li>
+</ul>
+</blockquote>
+<p><a name="options.ContractExpirationList.filter_expirations_before_days"></a></p>
+<h4 id="filter_expirations_before_days"><code>filter_expirations_before_days</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">filter_expirations_before_days</span><span class="p">(</span><span class="n">days</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<blockquote>
+<p>Filter expiration only allowing expirations before n days.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>days</code> <em>int</em> - Number of days to start filtering from. All expirations
+  which expire post days will be filtered out.</li>
+</ul>
+</blockquote>
+<p><a name="options.ContractExpirationList.filter_expirations_between_days"></a></p>
+<h4 id="filter_expirations_between_days"><code>filter_expirations_between_days</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">filter_expirations_between_days</span><span class="p">(</span><span class="n">after_days</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">before_days</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<blockquote>
+<p>Filter expiration only allowing expirations between a range of days.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>after_days</code> <em>int</em> - Number of days to start filtering from. All expirations
+  which expire prior to the days will be filtered out.</li>
+<li><code>before_days</code> <em>int</em> - Number of days to start filtering from. All expirations
+  which expire post days will be filtered out.</li>
+</ul>
+</blockquote>
+<p><a name="options.ContractExpirationList.__len__"></a></p>
+<h4 id="__len__"><code>__len__</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="fm">__len__</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</code></pre></div>
+<blockquote>
+<p>Length of the expiration_list.</p>
+</blockquote>
+<p><a name="options.ContractExpirationList.__iter__"></a></p>
+<h4 id="__iter__"><code>__iter__</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="fm">__iter__</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Iterable</span>
+</code></pre></div>
+<blockquote>
+<p>Iterate over the expirations_list.</p>
+</blockquote>
+<p><a name="options.ContractExpirationList.__add__"></a></p>
+<h4 id="__add__"><code>__add__</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="s2">&quot;ContractExpirationList&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;ContractExpirationList&quot;</span><span class="p">]</span>
+</code></pre></div>
+<blockquote>
+<p>Combine two ContractExpirationLists using the + operator.</p>
+</blockquote>
+<p><a name="options.OptionContractType"></a></p>
+<h2 id="optioncontracttype"><code>OptionContractType</code></h2>
+<blockquote>
+<p>Enum for option contract types.</p>
+</blockquote>
+<p><a name="options.OptionContract"></a></p>
+<h2 id="optioncontract"><code>OptionContract</code></h2>
+<blockquote>
+<p>Represents an Option Contract.</p>
+<p><strong>Attributes</strong>:</p>
+<ul>
+<li><code>symbol</code> <em>str</em> - Ticker symbol.</li>
+<li>
+<p><code>contract_type</code> <em>OptionContractType</em> - Call or Put type.</p>
+</li>
+<li>
+<p><code>timestamp</code> <em>str</em> - Raw timestamp scraped from yahoo finance. This string is left
+  untouched to make sure there is no issues when building a URL.</p>
+</li>
+<li><code>expiration_date</code> <em>DateTime</em> - Converted from the timestamp. This allows allows
+  sorting and filtering.</li>
+<li>
+<p><code>in_the_money</code> <em>bool</em> - True if strike price is ITM else False.</p>
+</li>
+<li>
+<p><code>contract_name</code> <em>str</em> - Contract Name.</p>
+</li>
+<li><code>last_trade_date</code> <em>DateTime</em> - Date of last trade.</li>
+<li><code>strike</code> <em>float</em> - Contracts strike price.</li>
+<li>
+<p><code>last_price</code> <em>float</em> - Last price of a transaction between a contract buyer and a seller.</p>
+</li>
+<li>
+<p><code>bid</code> <em>float</em> - Last bid price.</p>
+</li>
+<li>
+<p><code>ask</code> <em>float</em> - Last ask price.</p>
+</li>
+<li>
+<p><code>change</code> <em>float</em> - Price change in dollars.</p>
+</li>
+<li><code>percent_change</code> <em>float</em> - Price change in percentage.</li>
+<li><code>volume</code> <em>int</em> - Volume.</li>
+<li><code>open_interest</code> <em>int</em> - Number of contracts opened.</li>
+<li><code>implied_volatility</code> <em>float</em> - Contract IV.</li>
+</ul>
+<p><strong>Notes</strong>:</p>
+<p>This class inherits from the pydantic BaseModel which allows for the use
+  of .json() and .dict() for serialization to json strings and dictionaries.</p>
+<ul>
+<li><code>.json()</code> - Serialize to a JSON object.</li>
+<li><code>.dict()</code> - Serialize to a dictionary.</li>
+</ul>
+</blockquote>
+<p><a name="options.OptionsChain"></a></p>
+<h2 id="optionschain"><code>OptionsChain</code></h2>
+<blockquote>
+<p>Chain of option contracts with the same expiration date.</p>
+<p><strong>Attributes</strong>:</p>
+<ul>
+<li><code>symbol</code> <em>str</em> - Company symbol.</li>
+<li><code>expiration_date</code> <em>DateTime</em> - Contracts expiration date.</li>
+<li><code>chain</code> <em>List[OptionContract]</em> - List of OptionContracts.</li>
+</ul>
+<p><strong>Notes</strong>:</p>
+<p>This class inherits from the pydantic BaseModel which allows for the use
+  of .json() and .dict() for serialization to json strings and dictionaries.</p>
+<ul>
+<li><code>.json()</code> - Serialize to a JSON object.</li>
+<li><code>.dict()</code> - Serialize to a dictionary.</li>
+</ul>
+</blockquote>
+<p><a name="options.OptionsChain.dataframe"></a></p>
+<h4 id="dataframe"><code>dataframe</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">dataframe</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+</code></pre></div>
+<blockquote>
+<p>Return a dataframe of the option chain.</p>
+</blockquote>
+<p><a name="options.OptionsChain.calls"></a></p>
+<h4 id="calls"><code>calls</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">calls</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;OptionsChain&quot;</span>
+</code></pre></div>
+<blockquote>
+<p>Return a OptionChain with only call contracts.</p>
+</blockquote>
+<p><a name="options.OptionsChain.puts"></a></p>
+<h4 id="puts"><code>puts</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">puts</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;OptionsChain&quot;</span>
+</code></pre></div>
+<blockquote>
+<p>Return a OptionChain with only put contracts.</p>
+</blockquote>
+<p><a name="options.OptionsChain.__len__"></a></p>
+<h4 id="__len___1"><code>__len__</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="fm">__len__</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</code></pre></div>
+<blockquote>
+<p>Return the number of OptionContracts in the OptionChain.</p>
+</blockquote>
+<p><a name="options.MultipleOptionChains"></a></p>
+<h2 id="multipleoptionchains"><code>MultipleOptionChains</code></h2>
+<blockquote>
+<p>Multiple Option Chains with multiple expiration dates.</p>
+<p><strong>Attributes</strong>:</p>
+<ul>
+<li><code>option_chain_list</code> <em>List[OptionsChain]</em> - List of option chains.</li>
+<li><code>contract_expiration_list</code> <em>ContractExpirationList</em> - List of expirations.</li>
+</ul>
+<p><strong>Notes</strong>:</p>
+<p>This class inherits from the pydantic BaseModel which allows for the use
+  of .json() and .dict() for serialization to json strings and dictionaries.</p>
+<ul>
+<li><code>.json()</code> - Serialize to a JSON object.</li>
+<li><code>.dict()</code> - Serialize to a dictionary.</li>
+</ul>
+</blockquote>
+<p><a name="options.MultipleOptionChains.dataframe"></a></p>
+<h4 id="dataframe_1"><code>dataframe</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">dataframe</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span>
+</code></pre></div>
+<blockquote>
+<p>Return a dataframe of multiple option chains.</p>
+</blockquote>
+<p><a name="options.MultipleOptionChains.calls"></a></p>
+<h4 id="calls_1"><code>calls</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">calls</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;MultipleOptionChains&quot;</span>
+</code></pre></div>
+<blockquote>
+<p>Return a MultipleOptionChains object with only call contracts.</p>
+</blockquote>
+<p><a name="options.MultipleOptionChains.puts"></a></p>
+<h4 id="puts_1"><code>puts</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="nf">puts</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;MultipleOptionChains&quot;</span>
+</code></pre></div>
+<blockquote>
+<p>Return a MultipleOptionChains object with only put contracts.</p>
+</blockquote>
+<p><a name="options.MultipleOptionChains.__len__"></a></p>
+<h4 id="__len___2"><code>__len__</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="fm">__len__</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</code></pre></div>
+<blockquote>
+<p>Return the number of option chains.</p>
+</blockquote>
+<p><a name="options.MultipleOptionChains.__iter__"></a></p>
+<h4 id="__iter___1"><code>__iter__</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="fm">__iter__</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Iterable</span>
+</code></pre></div>
+<blockquote>
+<p>Iterate over option chain list.</p>
+</blockquote>
+<p><a name="options.MultipleOptionChains.__add__"></a></p>
+<h4 id="__add___1"><code>__add__</code></h4>
+<div class="highlight"><pre><span></span><code> <span class="o">|</span> <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="s2">&quot;MultipleOptionChains&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;MultipleOptionChains&quot;</span><span class="p">]</span>
+</code></pre></div>
+<blockquote>
+<p>Concatenate MultipleOptionChains.</p>
+</blockquote>
+<p><a name="options.get_table_elements"></a></p>
+<h4 id="get_table_elements"><code>get_table_elements</code></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_table_elements</span><span class="p">(</span><span class="n">html</span><span class="p">:</span> <span class="n">HTML</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="n">HTML</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">HTML</span><span class="p">]]</span>
+</code></pre></div>
+<blockquote>
+<p>Parse call and put HTML table elements.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>html</code> <em>HTML</em> - HTML element with call and put data.</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>Tuple of found call and put html elements.</p>
+</blockquote>
+<p><a name="options.parse_option_table"></a></p>
+<h4 id="parse_option_table"><code>parse_option_table</code></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">parse_option_table</span><span class="p">(</span><span class="n">contract_expiration</span><span class="p">:</span> <span class="n">ContractExpiration</span><span class="p">,</span> <span class="n">contract_type</span><span class="p">:</span> <span class="n">OptionContractType</span><span class="p">,</span> <span class="n">options_table</span><span class="p">:</span> <span class="n">HTML</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">OptionContract</span><span class="p">]</span>
+</code></pre></div>
+<blockquote>
+<p>Parse and clean fields and rows of a options table HTML element.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>contract_expiration</code> <em>ContractExpiration</em> - Used to pass ContractExpiration data
+  to the returned OptionContract object.</li>
+<li><code>contract_type</code> <em>OptionContractType</em> - Call or Put</li>
+<li><code>options_table</code> <em>HTML</em> - HTML element with raw options table data.</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>A list of OptionContracts parsed from the html options_table.</p>
+</blockquote>
+<p><a name="options.get_option_expirations"></a></p>
+<h4 id="get_option_expirations"><code>get_option_expirations</code></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_option_expirations</span><span class="p">(</span><span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ContractExpirationList</span><span class="p">]</span>
+</code></pre></div>
+<blockquote>
+<p>Get and parse option expiration data for the selected symbol.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>symbol</code> <em>str</em> - Ticker symbol.</li>
+<li><code>kwargs</code> - Pass (session, proxies, and timeout) to the requestor function.</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>ContractExpirationList</p>
+</blockquote>
+<p><a name="options.OptionPageNotFound"></a></p>
+<h2 id="optionpagenotfound"><code>OptionPageNotFound</code></h2>
+<blockquote>
+<p>Raised when options page data is not found.</p>
+</blockquote>
+<p><a name="options.get_options_page"></a></p>
+<h4 id="get_options_page"><code>get_options_page</code></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_options_page</span><span class="p">(</span><span class="n">symbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">after_days</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">before_days</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">first_chain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">use_fuzzy_search</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">page_not_found_ok</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="p">,)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">OptionsChain</span><span class="p">,</span> <span class="n">MultipleOptionChains</span><span class="p">]]</span>
+</code></pre></div>
+<blockquote>
+<p>Get options data from yahoo finance options page.</p>
+<p><strong>Arguments</strong>:</p>
+<ul>
+<li><code>symbol</code> <em>str</em> - Ticker symbol.</li>
+<li><code>after_days</code> <em>int</em> - Number of days to start filtering from. All expirations
+  which expire prior to the days will be filtered out.</li>
+<li><code>before_days</code> <em>int</em> - Number of days to start filtering from. All expirations
+  which expire post days will be filtered out.</li>
+<li><code>first_chain</code> <em>bool</em> - If True returns first chain. Else returns all found chains
+  within search range.</li>
+<li><code>use_fuzzy_search</code> <em>bool</em> - If True, does a symbol lookup validation prior
+  to requesting options page data.</li>
+<li><code>page_not_found_ok</code> <em>bool</em> - If True, returns None when page is not found.</li>
+<li><code>**kwargs</code> - Pass (session, proxies, and timeout) to the requestor function.</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul>
+<li><code>OptionsChain</code> - If first_chain is set to True the first found OptionsChain
+  within the after_days and before_days range is returned.
+  This is all option contracts from a single expiration and symbol.</li>
+<li><code>MultipleOptionChains</code> - If first_chain is set to False all OptionsChains within
+  the after_days and before_days range are returned. This can have
+  multiple expirations. Even if one expiration date is found
+  the MultipleOptionChains object is returned.</li>
+<li><code>None</code> - If no contracts are found and page_not_found_ok is True.</li>
+</ul>
+<p><strong>Raises</strong>:</p>
+<ul>
+<li><code>OptionPageNotFound</code> - If page_not_found_ok is False and the Options page is not found.</li>
+</ul>
+</blockquote>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../lookup-module/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Lookup Module
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../paths-module/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Paths Module
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="https://twitter.com/dgnsrekt" target="_blank" rel="noopener" title="dgnsrekt on twitter" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://github.com/dgnsrekt" target="_blank" rel="noopener" title="dgnsrekt on twitter" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://t.me/dgnsrekt" target="_blank" rel="noopener" title="dgnsrekt on twitter" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"/></svg>
+      </a>
+    
+      
+      
+      <a href="mailto:dgnsrekt@pm.me" target="_blank" rel="noopener" title="" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M476 3.2L12.5 270.6c-18.1 10.4-15.8 35.6 2.2 43.2L121 358.4l287.3-253.2c5.5-4.9 13.3 2.6 8.6 8.3L176 407v80.5c0 23.6 28.5 32.9 42.5 15.8L282 426l124.6 52.2c14.2 6 30.4-2.9 33-18.2l72-432C515 7.8 493.3-6.8 476 3.2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.93c04032.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83e5331e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.8c7e0a7e.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
