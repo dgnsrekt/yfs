@@ -46,9 +46,9 @@ class Valuation(Base):
             the relative trade-off between the price of a stock, the EPS, and the
             company's expected growth.
         price_sales_ttm (float): Trailing Twelve Months price to sales ratio.
-        price_book_mrq (float): todo
-        enterprise_revenue (float): todo
-        enterprise_ebitda (float): todo
+        price_book_mrq (float): Most Recent Quarter price to book ratio.
+        enterprise_revenue (float): Ratio of a company's total value to revenue
+        enterprise_ebitda (float): Ratio of a company's total value to EBITDA
 
     Notes:
         This class inherits from the pydantic BaseModel which allows for the use
@@ -122,33 +122,33 @@ class FinancialHighlights(Base):
     """Financial highlights section of a yahoo finance statistics page.
 
     Attributes:
-        fiscal_year_ends (Date): todo
-        most_recent_quarter_mrq (Date): todo
+        fiscal_year_ends (Date): Last date of one-year fiscal period from most recently filed report.
+        most_recent_quarter_mrq (Date): Last date of quarter for most recently filed quarterly report.
 
-        profit_margin (float): todo
-        operating_margin_ttm (float): todo
+        profit_margin (float): Ratio of net income to total revenue.
+        operating_margin_ttm (float): Ratio of operating earnings (EBIT) to revenue for the trailing twelve months.
 
-        return_on_assets_ttm (float): todo
-        return_on_equity_ttm (float): todo
+        return_on_assets_ttm (float): Ratio of net income to total assets for the trailing twelve months.
+        return_on_equity_ttm (float): Ratio of net income to shareholder equity for the trailing twelve months.
 
-        revenue_ttm (int): todo
-        revenue_per_share_ttm (float): todo
-        quarterly_revenue_growth_yoy (float): todo
-        gross_profit_ttm (int): todo
-        ebitda (int): todo
-        net_income_avi_to_common_ttm (int): todo
-        diluted_eps_ttm (float): todo
-        quarterly_earnings_growth_yoy (float): todo
+        revenue_ttm (int): Total revenue for the trailing twelve months.
+        revenue_per_share_ttm (float): Total revenue per share for the trailing twelve months.
+        quarterly_revenue_growth_yoy (float): Percent growth in quarterly revenue, comparing year over year.
+        gross_profit_ttm (int): Total revenue minus Cost Of Goods Sold.
+        ebitda (int): Earnings Before Interest Taxes Debt and Amortization.
+        net_income_avi_to_common_ttm (int): Net income available to common shareholders for the trailing twelve months.
+        diluted_eps_ttm (float): Diluted earnings per share for the trailing twelve months.
+        quarterly_earnings_growth_yoy (float): Percent growth in quarterly earnings, comparing year over year.
 
-        total_cash_mrq (int): todo
-        total_cash_per_share_mrq (float): todo
-        total_debt_mrq (int): todo
-        total_debt_equity_mrq (float): todo
-        current_ratio_mrq (float): todo
-        book_value_per_share_mrq (float): todo
+        total_cash_mrq (int): Total cash for the most recent quarter.
+        total_cash_per_share_mrq (float): Total cash per share for the most recent quarter.
+        total_debt_mrq (int): Total debt for the most recent quarter.
+        total_debt_equity_mrq (float): Ratio of total debt to equity for the most recent quarter.
+        current_ratio_mrq (float): Ratio of current assets to liabilities for the most recent quarter.
+        book_value_per_share_mrq (float): Book value per share for the most recent quarter.
 
-        levered_free_cash_flow_ttm (int): todo
-        operating_cash_flow_ttm (int): todo
+        levered_free_cash_flow_ttm (int): Free cash flow to firm after debts paid for the trailing twelve months.
+        operating_cash_flow_ttm (int): Net income plus non cash expenses minus working capital increase for the trailing twelve months.
 
     Notes:
         This class inherits from the pydantic BaseModel which allows for the use
@@ -222,45 +222,45 @@ class TradingInformation(Base):
     """Trading information section of a yahoo finance statistics page.
 
     Attributes:
-        beta_five_year_monthly (float): todo
+        beta_five_year_monthly (float): Ratio of company's monthly price change to market's monthly price change over 5 years.
 
-        fifty_two_week_change (float): todo
-        sp500_fifty_two_week_change (float): todo
-        fifty_two_week_high (float): todo
-        fifty_two_week_low (float): todo
-        fifty_day_moving_average (float): todo
-        two_hundred_day_moving_average (float): todo
+        fifty_two_week_change (float): Percent change in price over 52 weeks.
+        sp500_fifty_two_week_change (float): SP500's percent change in price over 52 weeks.
+        fifty_two_week_high (float): Highest price in the last 52 weeks.
+        fifty_two_week_low (float): Lowest price in the last 52 weeks.
+        fifty_day_moving_average (float): Average closing price for the last 50 days.
+        two_hundred_day_moving_average (float): Average closing price for the last 200 days.
 
-        average_three_month_volume (int): todo
-        average_ten_day_volume (int): todo
-        shares_outstanding (int): todo
-        float (int): todo
-        percent_held_by_insiders (float): todo
-        percent_held_by_institutions (float): todo
+        average_three_month_volume (int): Average daily volume for the last 3 months.
+        average_ten_day_volume (int): Average daily volume for the last 10 days.
+        shares_outstanding (int): Total number of shares issued by the company.
+        float (int): Total number of shares available for trading or shares outstanding minus restricted shares.
+        percent_held_by_insiders (float): Ratio of insider owned shares to shares outstanding.
+        percent_held_by_institutions (float): Ratio of institutionally owned shares to shares outstanding.
 
-        shares_short (int): todo
-        shares_short_date (Date): todo
-        short_ratio (float): todo
-        short_ratio_date (Date): todo
-        short_percent_of_float (float): todo
-        short_percent_of_float_date (Date): todo
-        short_percent_of_shares_outstanding (float): todo
-        short_percent_of_shares_outstanding_date (Date): todo
-        shares_short_prior_month (int): todo
-        shares_short_prior_month_date (Date): todo
+        shares_short (int): Total number of shares that are shorted.
+        shares_short_date (Date): Most recent date for reported shares short.
+        short_ratio (float): Ratio of shorted shares to average daily volume.
+        short_ratio_date (Date): Most recent date for reported short ratio.
+        short_percent_of_float (float): Ratio of shorted shares to share float.
+        short_percent_of_float_date (Date): Most recent date for reported short percent of float.
+        short_percent_of_shares_outstanding (float): Ratio of shorted shares to shares outstanding.
+        short_percent_of_shares_outstanding_date (Date): Most recent date for reported short percent of shares outstanding.
+        shares_short_prior_month (int): Total number of shares that were shorted 1 month ago.
+        shares_short_prior_month_date (Date): Last day of the prior month for reported shares short.
 
-        forward_annual_dividend_rate (float): todo
-        forward_annual_dividend_yield (float): todo
-        trailing_annual_dividend_rate (float): todo
-        trailing_annual_dividend_yield (float): todo
+        forward_annual_dividend_rate (float): Current dividend times number of dividend payments per year.
+        forward_annual_dividend_yield (float): Ratio of forward annual dividend rate to price.
+        trailing_annual_dividend_rate (float): Annual dividend rate for the trailing year.
+        trailing_annual_dividend_yield (float): Ratio of annual dividend rate to price for the trailing year.
 
-        five_year_average_dividend_yield (float): todo
+        five_year_average_dividend_yield (float): Average annual dividend yield for the last 5 years.
 
-        payout_ratio (float): todo
-        dividend_date (Date): todo
-        exdividend_date (Date): todo
-        last_split_factor (str): todo
-        last_split_date (Date): todo
+        payout_ratio (float): Ratio of paid dividends to net income.
+        dividend_date (Date): Most recent date a reported dividend payment was sent.
+        exdividend_date (Date): The first day a shareholder is not owed a dividend payment on the dividend date.
+        last_split_factor (str): The amount of new shares each shareholder gets for previously holding 1 share.
+        last_split_date (Date): Date of the most recent stock split.
 
     Notes:
         This class inherits from the pydantic BaseModel which allows for the use
